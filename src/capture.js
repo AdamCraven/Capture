@@ -1,10 +1,12 @@
-/*jslint undef:true*/
-/*globals jQuery*/
-(function($) {
+/*jslint evil: false, bitwise:false, strict: true, undef: true, white: false, onevar:false, browser:true, plusplus:false */
+/*global jQuery */
+(function($){
+    "use strict";
+
     $.extend({
         // Nothing special happening here, yet
-        viewController : function(viewController) {
-           return viewController;
+        viewController : function(viewController) {     
+            return viewController;
         }
     });
     
@@ -19,6 +21,7 @@
         var method;
         var selector;
         var eventDelegate;
+        var element = this;
         
         for(method in viewController) {
            // Find methods which are event handlers
@@ -33,13 +36,16 @@
                for (selector in eventDelegate) { 
                    if(eventDelegate.hasOwnProperty(selector)) {
                        // Bind event handler to the element
-                       $(this).delegate(selector, eventName, eventDelegate[selector]);
+                       element.delegate(selector, eventName, eventDelegate[selector]);
                    }
                }
            }
             
         }
-
+        
+        // Ensure bound element is passed into viewController
+        viewController.element = element;
+        
         if(viewController.init) { 
             viewController.init();
         }

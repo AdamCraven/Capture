@@ -3,6 +3,7 @@
 clicker = $.viewController({
     init : function() {
         console.log('init called');
+        console.log(this.element);
     },
     
     onclick : {

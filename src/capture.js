@@ -49,6 +49,8 @@
         if(viewController.init) { 
             viewController.init();
         }
+        
+        return viewController;
     };
     
 

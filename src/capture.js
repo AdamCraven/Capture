@@ -22,10 +22,11 @@
         var selector;
         var eventDelegate;
         var element = this;
+        var onString = /^on(.+)/;
         
         for(method in viewController) {
            // Find methods which are event handlers
-           if (method.match(/^on(.+)/) && typeof viewController[method] === "object") { 
+           if (method.match(onString) && typeof viewController[method] === "object") { 
                
                // Events to delegate
                eventDelegate = viewController[method];

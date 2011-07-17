@@ -1,6 +1,6 @@
 /*jslint*/
 
-clicker = $.viewController({
+clicker = {
     init : function() {
         console.log('init called');
         console.log(this.element);
@@ -28,4 +28,4 @@ clicker = $.viewController({
         }
     }
     
-});
+};

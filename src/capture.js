@@ -3,19 +3,15 @@
 (function($){
     "use strict";
 
-    $.extend({
-        // Nothing special happening here, yet
-        viewController : function(viewController) {     
-            return viewController;
-        }
-    });
-    
     /**
      * @public
      * @param {object}  viewController  The viewController which is attached to the element
      */
     $.fn.capture = function(viewController){
         if(!viewController) {return false;}
+        
+        // Create new instance of
+        viewController = $.extend({}, viewController);
         
         var eventName;
         var method;
@@ -25,9 +21,8 @@
         var eventMethod = /^on(.+)/;
         
         for(method in viewController) {
-            //TODO: hasOwnPropertyCheck
            // Find methods which are event handlers
-           if (method.match(eventMethod) && typeof viewController[method] === "object") { 
+           if (viewController.hasOwnProperty(method) && method.match(eventMethod) && typeof viewController[method] === "object") { 
                
                // Event to delegate
                eventDelegate = viewController[method];

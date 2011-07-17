@@ -15,14 +15,14 @@
         test("Click method works", function() {
             var count = 0;
             
-            var viewController = $.viewController({ 
+            var viewController = { 
                 init:function(){},
                 onclick : {
                     '.link': function(){
                         count++;
                     }
                 }
-             });
+             };
             // Attach viewController to element
             var boundViewController = $('#testElement').capture(viewController);
             

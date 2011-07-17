@@ -16,8 +16,27 @@
 		</div>
 		
 	</div>
+	
+	<div id="picture">
+		<img src="link/to/img/" />
+		<a class="delete">Delete picture</a>
+	</div>
+	
 	<script>
 		$('#clicker').capture(clicker);
+		
+		var pictureViewController = {
+			init : function(){}, //TODO: accept arguments
+			onclick : {
+				'.delete' : function(e, selector) {
+					console.log('e',e);
+					console.log('this.elem', this.element);
+				//	this.element.remove();
+				}
+			}
+		}
+		
+		$('#picture').capture(pictureViewController);
 	</script>
 </body>
 </html>

@@ -2,6 +2,15 @@
 /*global jQuery */
 (function($){
     "use strict";
+    
+    var nativeBind = Function.prototype.bind;
+    
+    var bind = function(func, context) {
+        if (func.bind === nativeBind && nativeBind) {
+            return nativeBind.apply(func, [].slice.call(arguments, 1));
+        }
+        return $.proxy(func, context);
+    };
 
     /**
      * @public
@@ -32,8 +41,8 @@
                
                for (selector in eventDelegate) { 
                    if(eventDelegate.hasOwnProperty(selector)) {
-                       // Bind event handler to the element
-                       element.delegate(selector, eventName, eventDelegate[selector]);
+                       // Bind event handler to the element. Set the context to the viewController 
+                       element.delegate(selector, eventName, bind(eventDelegate[selector], viewController));
                    }
                }
            }
@@ -42,11 +51,12 @@
         
         // Ensure bound element is passed into viewController
         viewController.element = element;
-        
+                
         if(viewController.init) { 
             viewController.init();
+            //TODO: accept arguments
         }
-        
+                
         return viewController;
     };
     

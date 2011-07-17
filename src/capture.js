@@ -18,11 +18,11 @@
         var selector;
         var eventDelegate;
         var element = this;
-        var eventMethod = /^on(.+)/;
+        var eventMethodPrefix = /^on(.+)/;
         
         for(method in viewController) {
            // Find methods which are event handlers
-           if (viewController.hasOwnProperty(method) && method.match(eventMethod) && typeof viewController[method] === "object") { 
+           if (viewController.hasOwnProperty(method) && method.match(eventMethodPrefix) && typeof viewController[method] === "object") { 
                
                // Event to delegate
                eventDelegate = viewController[method];

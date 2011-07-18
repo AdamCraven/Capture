@@ -16,7 +16,30 @@
 
     module("Context binding", {teardown: teardown, setup: setup });
         
-        test("Context inside viewController", function() {
+        test("Context inside viewController init", function() {
+            
+            var viewController = { 
+               init : function init() {
+                    equal(init, this.init, 'context of this, is this view controller');
+                    this.test();
+               },
+               test : function() {
+                   ok(true, 'test function can be accessed from init function');
+                   this.test2();
+               },
+               test2 : function() {
+                   ok(true, 'test2 function can be accessed from init function');
+                   
+               }
+            };
+            
+            $('#testElement').capture(viewController);
+            expect(3);
+            
+
+        });
+        
+        test("Context inside viewController events", function() {
             
             var viewController = { 
                 onclick : {
@@ -31,7 +54,6 @@
             
             $('#testElement .link').click();
 
-            
         });
         
 }());

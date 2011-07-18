@@ -4,10 +4,11 @@
     "use strict";
     
     var nativeBind = Function.prototype.bind;
+    var slice = Array.prototype.slice;
     
     var bind = function(func, context) {
         if (func.bind === nativeBind && nativeBind) {
-            return nativeBind.apply(func, [].slice.call(arguments, 1));
+            return nativeBind.apply(func, slice.call(arguments, 1));
         }
         return $.proxy(func, context);
     };
@@ -22,7 +23,7 @@
         // Create new instance of
         viewController = $.extend({}, viewController);
         
-        var eventName;
+        var eventType;
         var method;
         var selector;
         var eventDelegate;
@@ -31,18 +32,20 @@
         
         for(method in viewController) {
            // Find methods which are event handlers
-           if (viewController.hasOwnProperty(method) && method.match(eventMethodPrefix) && typeof viewController[method] === "object") { 
+           if (viewController.hasOwnProperty(method) && 
+                method.match(eventMethodPrefix) && 
+                typeof viewController[method] === "object") { 
                
                // Event to delegate
                eventDelegate = viewController[method];
                
                // e.g. click
-               eventName = method.match(/^on(.+)/)[1];
+               eventType = method.match(/^on(.+)/)[1];
                
                for (selector in eventDelegate) { 
                    if(eventDelegate.hasOwnProperty(selector)) {
                        // Bind event handler to the element. Set the context to the viewController 
-                       element.delegate(selector, eventName, bind(eventDelegate[selector], viewController));
+                       element.delegate(selector, eventType, bind(eventDelegate[selector], viewController));
                    }
                }
            }
@@ -52,9 +55,11 @@
         // Ensure bound element is passed into viewController
         viewController.element = element;
                 
-        if(viewController.init) { 
-            viewController.init();
-            //TODO: accept arguments
+        if(viewController.init) {
+            var additionalArguments = slice.call(arguments, 1);
+            
+            // Exectue init functino
+            viewController.init.apply(viewController, additionalArguments);
         }
                 
         return viewController;

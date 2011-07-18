@@ -20,16 +20,15 @@
             
             var viewController = { 
                init : function init() {
-                    equal(init, this.init, 'context of this, is this view controller');
-                    this.test();
+                   equal(init, this.init, 'context of this, is this view controller');
+                   this.test();
                },
                test : function() {
-                   ok(true, 'test function can be accessed from init function');
+                   ok(true, 'test function can be accessed from init function, using this');
                    this.test2();
                },
                test2 : function() {
-                   ok(true, 'test2 function can be accessed from init function');
-                   
+                   ok(true, 'test2 function can be accessed from test function, using this');
                }
             };
             

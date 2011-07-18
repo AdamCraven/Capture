@@ -55,7 +55,7 @@
 			   
 			   for(var selector in eventDelegate) { 
 				   if(eventDelegate.hasOwnProperty(selector)) {
-					   // Bind event handler to the element. Set the context to the viewController 
+					   // Bind event handler to the element. Setting the context to the viewController 
 					   $element.delegate(selector, eventType, bind(eventDelegate[selector], viewController));
 				   }
 			   }

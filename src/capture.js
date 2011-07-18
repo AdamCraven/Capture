@@ -7,22 +7,23 @@
 	var slice = Array.prototype.slice;
 	
 	/**
-	 * ECMAScript5 bind method.
-	 * Uses native bind if supported or passes to jQuery proxy function
-	 *
-	 * @param	{function}	func	Function to bind
-	 * @param	{object}	context Scope in which the function is bound.
+	 *	ECMAScript 5 bind method.
+	 *	Uses native bind if supported or passes to jQuery proxy.
+	 *	
+	 *	@param	{function}	fn		Function to bind.
+	 *	@param	{object}	context Scope in which the function is bound.
 	 */
-	function bind(func, context) {
-		if (func.bind === nativeBind && nativeBind) {
-			return nativeBind.apply(func, slice.call(arguments, 1));
+	function bind(fn, context) {
+		if (fn.bind === nativeBind && nativeBind) {
+			return nativeBind.apply(fn, slice.call(arguments, 1));
 		}
-		return $.proxy(func, context);
+		return $.proxy(fn, context);
 	}
 
 	/**
-	 * @public
-	 * @param {object}	viewController	The viewController which is attached to the element
+	 *	Capture loosely attaches a viewController to an element via event delegates.
+	 *	@param	{object}	viewController	The viewController which is attached to the element.
+	 *	@public
 	 */
 	$.fn.capture = function(viewController){
 		if(!viewController) {
@@ -71,6 +72,5 @@
 				
 		return viewController;
 	};
-	
 
 })(jQuery);

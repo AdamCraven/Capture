@@ -30,7 +30,7 @@
 			throw 'A viewController must be passed';
 		}
 
-		var eventDelegate, eventType;
+		var eventDelegate, eventType, additionalArguments;
 
 		// The jQuery element the viewController is bound unto
 		var $element = this;
@@ -64,7 +64,7 @@
 
 		if(viewController.init) {
 			// Any addtional arguments are collated
-			var additionalArguments = slice.call(arguments, 1);
+			additionalArguments = slice.call(arguments, 1);
 			
 			// Execute init
 			viewController.init.apply(viewController, additionalArguments);

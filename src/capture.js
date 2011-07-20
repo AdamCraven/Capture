@@ -51,7 +51,7 @@
 			   eventDelegate = viewController[method];
 			   
 			   // e.g. click
-			   eventType = method.match(/^on(.+)/)[1];
+			   eventType = method.match(eventMethodPrefix)[1];
 			   
 			   for(var selector in eventDelegate) { 
 				   if(eventDelegate.hasOwnProperty(selector)) {

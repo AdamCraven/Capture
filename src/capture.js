@@ -10,6 +10,7 @@
 	
 	var nativeBind = Function.prototype.bind;
 	var slice = Array.prototype.slice;
+	var toString = Object.prototype.toString;
 	
 	/**
 	 *	ECMAScript 5 bind method.
@@ -31,8 +32,12 @@
 	 *	@public
 	 */
 	$.fn.capture = function(viewController){
-		if(!viewController || typeof viewController !== "object") { // TODO: More error checks, e.g. object.
-			throw 'A viewController must be passed'; // TODO: Describe element it was attached to
+		if(!viewController) {
+			throw 'NO_VIEWCONTROLLER'; // TODO: Describe element it was attached to
+		}
+		
+		if(toString.call(viewController) !== '[object Object]') {
+			throw 'VIEWCONTROLLER_MUST_BE_OBJECT';
 		}
 
 		var eventDelegate, eventType, additionalArguments;
@@ -71,7 +76,7 @@
 			// Any addtional arguments are collated
 			additionalArguments = slice.call(arguments, 1);
 			
-			// Execute init
+			// Execute init, sending addditional arguments
 			viewController.init.apply(viewController, additionalArguments);
 		}
 				

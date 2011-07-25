@@ -40,6 +40,56 @@
 			};
 			 
 			$('#testElement').capture(viewController, options, anotherValue); 
+			
+			expect(2);
 		});
+		
+	module("Initialisation", {teardown: teardown, setup: setup });
+	
+		test("Fail on no viewController sent", function() {
+		 
+			try {
+				$('#testElement').capture();
+			} catch(e) {
+				equal(e, 'NO_VIEWCONTROLLER');
+			}
+		
+			expect(1);
+		});
+		
+		test("Functions are invalid viewControllers", function() {
+			 
+			try {
+				$('#testElement').capture(function() {});
+			} catch(e) {
+				equal(e, 'VIEWCONTROLLER_MUST_BE_OBJECT');
+			}
+			
+			expect(1);
+		});
+		
+		test("Arrays are invalid viewControllers", function() {
+			 
+			try {
+				$('#testElement').capture([]);
+			} catch(e) {
+				equal(e, 'VIEWCONTROLLER_MUST_BE_OBJECT');
+			}
+			
+			expect(1);
+		});
+		
+		test("Strings are invalid viewControllers", function() {
+
+			try {
+				$('#testElement').capture('Strings are invalid');
+			} catch(e) {
+				equal(e, 'VIEWCONTROLLER_MUST_BE_OBJECT');
+			}
+			
+			expect(1);
+		});
+		
+	
 	
 }());

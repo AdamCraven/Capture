@@ -1,5 +1,10 @@
 /*jslint evil: false, bitwise:false, strict: true, undef: true, white: false, onevar:false, browser:true, plusplus:false */
 /*global jQuery */
+/*! 
+ *	Capture.js
+ *	Copyright 2011 Adam Craven
+ *	https://github.com/AdmCrvn/Capture
+ */
 (function($){
 	"use strict";
 	
@@ -26,8 +31,8 @@
 	 *	@public
 	 */
 	$.fn.capture = function(viewController){
-		if(!viewController) {
-			throw 'A viewController must be passed';
+		if(!viewController) { // TODO: More error checks, e.g. object.
+			throw 'A viewController must be passed'; // TODO: Describe element it was attached to
 		}
 
 		var eventDelegate, eventType, additionalArguments;

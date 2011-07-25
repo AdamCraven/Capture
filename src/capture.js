@@ -12,6 +12,9 @@
 	var slice = Array.prototype.slice;
 	var toString = Object.prototype.toString;
 	
+	// All properties with prefix of 'on' are treated as event delegates
+	var eventMethodPrefix = /^on(.+)/;
+	
 	/**
 	 *	ECMAScript 5 bind method.
 	 *	Uses native bind if supported or passes to jQuery proxy.
@@ -24,6 +27,29 @@
 			return nativeBind.apply(fn, slice.call(arguments, 1));
 		}
 		return $.proxy(fn, context);
+	}
+	
+	function setupEventDelegates(viewController) {
+		
+		var eventDelegate, eventType, method, selector;
+		
+		// Loop through all methods looking for event delegates
+		for(method in viewController) {
+		   if (viewController.hasOwnProperty(method) && method.match(eventMethodPrefix) && typeof viewController[method] === "object") { 
+			   // Event to delegate
+			   eventDelegate = viewController[method];
+			   
+			   // e.g. click
+			   eventType = method.match(eventMethodPrefix)[1];
+			   
+			   for(selector in eventDelegate) { 
+				   if(eventDelegate.hasOwnProperty(selector)) {
+					   // Bind event handler to the element. Setting the context to the viewController 
+					   viewController.element.delegate(selector, eventType, bind(eventDelegate[selector], viewController));
+				   }
+			   }
+		   }  
+		}
 	}
 
 	/**
@@ -39,42 +65,19 @@
 		if(toString.call(viewController) !== '[object Object]') {
 			throw 'VIEWCONTROLLER_MUST_BE_OBJECT';
 		}
-
-		var eventDelegate, eventType, additionalArguments;
-
-		// The jQuery element the viewController is bound unto
-		var $element = this;
-
-		// All methods with prefix of 'on' are treated as event delegates
-		var eventMethodPrefix = /^on(.+)/;
 		
 		// Create new instance of
 		viewController = $.extend({}, viewController);
-
-		// Ensure element is passed as a property of the viewController
-		viewController.element = $element;
 		
-		// Loop through all methods looking for event delegates
-		for(var method in viewController) {
-		   if (viewController.hasOwnProperty(method) && method.match(eventMethodPrefix) && typeof viewController[method] === "object") { 
-			   // Event to delegate
-			   eventDelegate = viewController[method];
-			   
-			   // e.g. click
-			   eventType = method.match(eventMethodPrefix)[1];
-			   
-			   for(var selector in eventDelegate) { 
-				   if(eventDelegate.hasOwnProperty(selector)) {
-					   // Bind event handler to the element. Setting the context to the viewController 
-					   $element.delegate(selector, eventType, bind(eventDelegate[selector], viewController));
-				   }
-			   }
-		   }  
-		}
-
+		// Assign element property to viewController
+		viewController.element = this;
+		
+		// Setup event delegates
+		setupEventDelegates(viewController);
+		
 		if(viewController.init) {
 			// Any addtional arguments are collated
-			additionalArguments = slice.call(arguments, 1);
+			var additionalArguments = slice.call(arguments, 1);
 			
 			// Execute init, sending addditional arguments
 			viewController.init.apply(viewController, additionalArguments);
@@ -82,6 +85,6 @@
 				
 		return viewController;
 	};
-
+	
 
 })(jQuery);

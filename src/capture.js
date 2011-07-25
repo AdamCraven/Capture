@@ -31,7 +31,7 @@
 	 *	@public
 	 */
 	$.fn.capture = function(viewController){
-		if(!viewController) { // TODO: More error checks, e.g. object.
+		if(!viewController || typeof viewController !== "object") { // TODO: More error checks, e.g. object.
 			throw 'A viewController must be passed'; // TODO: Describe element it was attached to
 		}
 
@@ -77,5 +77,6 @@
 				
 		return viewController;
 	};
+
 
 })(jQuery);

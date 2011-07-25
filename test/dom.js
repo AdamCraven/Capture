@@ -34,18 +34,18 @@
             // Attach viewController to element
             $('#testElement').capture(viewController);
             
-            equal(0, clicked);
+            equal(clicked, 0);
             $('#testElement .link').click();
-            equal(1, clicked, 'count has increased after click');
+            equal(clicked, 1, 'count has increased after click');
             
-            equal(0, subClicked);
+            equal(subClicked, 0);
             $('#testElement .sub-link').click();
-            equal(1, subClicked, 'count has increased after click');
+            equal(subClicked, 1, 'count has increased after click');
             
             //click both
             $('#testElement a').click();
-            equal(2, clicked);
-            equal(2, subClicked);
+            equal(clicked, 2);
+            equal(subClicked, 2);
             
         });
         
@@ -63,10 +63,9 @@
               // Attach viewController to element
               $('#testElement').capture(viewController);
 
-              equal(0, eventTriggered);
+              equal(eventTriggered, 0);
               $('#testElement .link').trigger('custom');
-              equal(1, eventTriggered, 'count has increased after custom event');
-
+              equal(eventTriggered, 1, 'count has increased after custom event');
 
           });
     

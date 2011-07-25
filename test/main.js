@@ -46,7 +46,7 @@
 		
 	module("Initialisation", {teardown: teardown, setup: setup });
 	
-		test("Fail on no viewController sent", function() {
+		test("Fail when no viewController sent", function() {
 		 
 			try {
 				$('#testElement').capture();

@@ -1,5 +1,5 @@
 
-#WORK IN PROGRESS - 2011-07-17
+#WORK IN PROGRESS - 2011-07-21
 
 ##Capture - View Controllers for jQuery
 
@@ -18,6 +18,7 @@ And this JavaScript
 		init : function(){},
 		onclick : {
 			'.delete' : function() {
+				// Will remove #picture
 				this.element.remove();
 			}
 		}
@@ -26,3 +27,11 @@ And this JavaScript
 	$('#picture').capture(pictureViewController);
 	
 Will link an element with it's view controller.
+
+
+#Todo;
+
+  * Inheritance - Like this? $('el').capture(vc).prototypeIs({});
+  * Object-oriented style function call	$.capture('el', vc);
+  * Unbinding
+  * Element delegate without the need to supply element selector if just need one delegate.

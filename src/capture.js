@@ -29,6 +29,7 @@
 		return $.proxy(fn, context);
 	}
 	
+	/** USE xeys-description.js as basis of formatting*/
 	function setupEventDelegates(viewController) {
 		
 		var eventDelegate, eventType, method, selector;
@@ -60,13 +61,9 @@
 		   }  
 		}
 	}
-
-	/**
-	 *	Capture loosely attaches a viewController to an element via event delegates.
-	 *	@param	{object}	viewController	The viewController which is attached to the element.
-	 *	@public
-	 */
-	$.fn.capture = function(viewController){
+	
+	
+	function checkErrors(viewController) {
 		if(!viewController) {
 			throw 'NO_VIEWCONTROLLER'; // TODO: Describe element it was attached to
 		}
@@ -74,6 +71,15 @@
 		if(toString.call(viewController) !== '[object Object]') {
 			throw 'VIEWCONTROLLER_MUST_BE_OBJECT';
 		}
+	}
+	
+	/**
+	 *	Capture loosely attaches a viewController to an element via event delegates.
+	 *	@param	{object}	viewController	The viewController which is attached to the element.
+	 *	@public
+	 */
+	$.fn.capture = function(viewController){
+		checkErrors.call(this, viewController);
 		
 		// Create new instance of
 		viewController = $.extend({}, viewController);

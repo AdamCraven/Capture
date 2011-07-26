@@ -33,6 +33,8 @@
 		
 		var eventDelegate, eventType, method, selector;
 		
+		var delegateElement = viewController.element;
+		
 		// Loop through all methods looking for event delegates
 		for(method in viewController) {
 		   if (viewController.hasOwnProperty(method) && method.match(eventMethodPrefix) && typeof viewController[method] === "object") { 
@@ -44,8 +46,15 @@
 			   
 			   for(selector in eventDelegate) { 
 				   if(eventDelegate.hasOwnProperty(selector)) {
-					   // Bind event handler to the element. Setting the context to the viewController 
-					   viewController.element.delegate(selector, eventType, bind(eventDelegate[selector], viewController));
+						
+						// If the selector is the same as the delegateElement
+						if(delegateElement.is(selector)) {
+							// Attached event to current element
+							delegateElement.bind(eventType, bind(eventDelegate[selector], viewController));
+						} else {
+							// Bind event delegate to the element. Setting the context to the viewController 
+							delegateElement.delegate(selector, eventType, bind(eventDelegate[selector], viewController));
+						}
 				   }
 			   }
 		   }  
@@ -72,9 +81,6 @@
 		// Assign element property to viewController
 		viewController.element = this;
 		
-		// Setup event delegates
-		setupEventDelegates(viewController);
-		
 		if(viewController.init) {
 			// Any addtional arguments are collated
 			var additionalArguments = slice.call(arguments, 1);
@@ -82,6 +88,9 @@
 			// Execute init, sending addditional arguments
 			viewController.init.apply(viewController, additionalArguments);
 		}
+		
+		// Setup event delegates
+		setupEventDelegates(viewController);
 				
 		return viewController;
 	};

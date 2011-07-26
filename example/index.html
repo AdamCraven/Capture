@@ -38,5 +38,24 @@
 		
 		$('#picture').capture(pictureViewController);
 	</script>
+	
+	<div id="test">
+		TESTSTSTSTSA TATA TA T AT 
+		<child>CHILD!</child>
+	</div>
+	
+	<script>
+		var testViewController = {
+			onclick : {
+				'*' : function() {
+					console.log('PICTUEs');
+				}
+			}
+		}
+		
+		$('#test').capture(testViewController);
+	
+		
+	</script>
 </body>
 </html>

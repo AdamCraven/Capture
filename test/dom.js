@@ -31,7 +31,6 @@
                 }
             };
             
-            // Attach viewController to element
             $('#testElement').capture(viewController);
             
             equal(clicked, 0);
@@ -60,7 +59,6 @@
                   }
               };
 
-              // Attach viewController to element
               $('#testElement').capture(viewController);
 
               equal(eventTriggered, 0);
@@ -68,5 +66,68 @@
               equal(eventTriggered, 1, 'count has increased after custom event');
 
           });
+
+        test("Delegate is on the same element", function() {
+              var eventTriggered = 0;
+
+              var viewController = { 
+                  onclick : {
+                      '#testElement': function(){
+                          eventTriggered++;
+                      }
+                  }
+              };
+
+              $('#testElement').capture(viewController);
+
+              equal(eventTriggered, 0);
+              $('#testElement .link').trigger('click');
+              equal(eventTriggered, 1, 'count has increased after custom event');
+
+          });
+
+
+        test("Delegate is on all elements", function() {
+              var eventTriggered = 0;
+
+              var viewController = { 
+                  onclick : {
+                      '*': function(){
+                          eventTriggered++;
+                      }
+                  }
+              };
+
+              $('#testElement').capture(viewController);
+
+              equal(eventTriggered, 0);
+              $('#testElement .sub-link').trigger('click');
+              equal(eventTriggered, 1, 'count has increased after custom event');
+
+          });
+
+		// Special edge case when this.element has another class added to it in initialise
+        test("Selector created in init, can be bound straight away", function() {
+              var eventTriggered = 0;
+
+              var viewController = {
+				  init : function() {
+					this.element.addClass('newClass');
+				  },
+                  onclick : {
+                      '.newClass': function(){
+                          eventTriggered++;
+                      }
+                  }
+              };
+
+              $('#testElement').capture(viewController);
+
+              equal(eventTriggered, 0);
+              $('#testElement.newClass').trigger('click');
+              equal(eventTriggered, 1, 'count has increased after custom event');
+
+          });
+		
     
 }());

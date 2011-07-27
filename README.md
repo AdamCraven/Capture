@@ -35,3 +35,4 @@ Will link an element with it's view controller.
   * Object-oriented style function call	$.capture('el', vc);
   * Unbinding
   * Element delegate without the need to supply element selector if just need one delegate.
+  * Support for multiple elements

@@ -107,7 +107,7 @@
 		validate(ViewController);
 		
 		viewController = newInstance(ViewController);
-		initialise(viewController, slice.call(arguments,1), element);
+		initialise(viewController, slice.call(arguments, 1), element);
 		attachEventDelegates(viewController);
 				
 		return viewController;

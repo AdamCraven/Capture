@@ -53,9 +53,32 @@
 			}
 		}
 		
-		$('#test').capture(testViewController);
+		$('#test').capture(testViewController, 'pposh');
 	
 		
 	</script>
+	
+	
+	<div class="doubleTrouble">
+		<h2>First Double</h2>
+	</div>
+	
+	<div class="doubleTrouble">
+		<h2>Second Double</h2>	
+	</div>
+	
+	
+	<script>
+		var doubleTrouble = {
+			onclick : {
+				'h2' : function(e) {
+					console.log(e.target, this.element[0]);
+				}
+			}
+		}
+		
+		$('.doubleTrouble').capture(doubleTrouble);
+	</script>
+	
 </body>
 </html>

@@ -25,9 +25,9 @@
 			equal(boundViewController.element[0], $('#testElement')[0], 'captured element is same');
 			notEqual(viewController, boundViewController, 'The boundViewController is a new instance of viewController, and not the same');
 		});
-		
-	module("Initialisation", {teardown: teardown, setup: setup });
 	
+	module("Initialisation", {teardown: teardown, setup: setup });
+	/*
 		test("Fail when no viewController sent", function() {
 		 
 			try {
@@ -71,7 +71,7 @@
 			
 			expect(1);
 		});
-		
+		*/
 		test("Extra arguments are sent to init function", function() {
 			
 			var options = {};

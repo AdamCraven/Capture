@@ -1,5 +1,5 @@
 /*jslint evil: false, bitwise:false, strict: true, undef: true, white: false, onevar:false, browser:true, plusplus:false */
-/*global jQuery */
+/*global jQuery, console:true */
 /*! 
  *	Capture.js
  *	Copyright 2011 Adam Craven
@@ -38,16 +38,17 @@
 		
 		// Loop through all methods looking for event delegates
 		for(method in viewController) {
-		   if (viewController.hasOwnProperty(method) && method.match(eventMethodPrefix) && typeof viewController[method] === "object") { 
+		   if (viewController.hasOwnProperty(method) && 
+				method.match(eventMethodPrefix) && 
+				typeof viewController[method] === "object") {
 			   // Event to delegate
 			   eventDelegate = viewController[method];
-			   
+
 			   // e.g. click
 			   eventType = method.match(eventMethodPrefix)[1];
 			   
 			   for(selector in eventDelegate) { 
-				   if(eventDelegate.hasOwnProperty(selector)) {
-						
+				   if(eventDelegate.hasOwnProperty(selector)) {	
 						// If the selector is the same as the delegateElement
 						if(delegateElement.is(selector)) {
 							// Attached event to current element
@@ -62,14 +63,22 @@
 		}
 	}
 	
+	function logError(error) {
+		if(console && console.error) {
+			console.error(error);
+		} else {
+			throw new Error(error);
+		}
+	}
 	
-	function checkErrors(viewController) {
+	
+	function isValid(viewController) {
 		if(!viewController) {
-			throw 'NO_VIEWCONTROLLER'; // TODO: Describe element it was attached to
+			return logError('NO_VIEWCONTROLLER'); // TODO: Describe element it was attached to
 		}
 		
 		if(toString.call(viewController) !== '[object Object]') {
-			throw 'VIEWCONTROLLER_MUST_BE_OBJECT';
+			return logError('VIEWCONTROLLER_MUST_BE_OBJECT');
 		}
 	}
 	
@@ -79,7 +88,11 @@
 	 *	@public
 	 */
 	$.fn.capture = function(viewController){
-		checkErrors.call(this, viewController);
+	    if(this.length === 0) {
+		    return;
+		}
+		
+		isValid.call(this, viewController);
 		
 		// Create new instance of
 		viewController = $.extend({}, viewController);
@@ -91,7 +104,7 @@
 			// Any addtional arguments are collated
 			var additionalArguments = slice.call(arguments, 1);
 			
-			// Execute init, sending addditional arguments
+			// Execute init, sending additional arguments
 			viewController.init.apply(viewController, additionalArguments);
 		}
 		

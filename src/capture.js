@@ -81,9 +81,9 @@
 		return $.extend({}, ViewController);
 	}
 	
-	function initialise(viewController, additionalArgs, element) {
+	function initialise(viewController, additionalArgs, $element) {
 		// Assign element property to instance
-		viewController.element = element;
+		viewController.element = $element;
 		
 		if(viewController.init) {
 			// Execute init, sending additional arguments
@@ -98,19 +98,25 @@
 	 */
 	$.fn.capture = function(ViewController) {
 		var viewController;
-		var element = this;
+		var viewControllers =[];
+		var $element = this;
 		
-	    if(element.length === 0) {
+	    if($element.length === 0 || !$element.each) {
 		    return;
 		}
 		
 		validate(ViewController);
 		
-		viewController = newInstance(ViewController);
-		initialise(viewController, slice.call(arguments, 1), element);
-		attachEventDelegates(viewController);
+		// For each element, add a new viewController
+		for (var i=0; i < $element.length; i++) {
+			viewController = newInstance(ViewController);
+			initialise(viewController, slice.call(arguments, 1), $element.eq(i));
+			attachEventDelegates(viewController);
+			
+			viewControllers.push(viewController);
+		}
 				
-		return viewController;
+		return viewControllers;
 	};
 	
 

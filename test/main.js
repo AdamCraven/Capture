@@ -7,7 +7,7 @@
 	}
 
 	function setup() {
-		$('body').append('<div id="testElement"></div>');
+		$('body').append('<div id="testElement"><div class="double first"></div><div class="double second"></div></div>');
 	}
 
 	module("Capture", {teardown: teardown, setup: setup });
@@ -20,11 +20,24 @@
 
 		test("Basic binding to elements", function() {
 			var viewController = { init:function(){} };
-			var boundViewController = $('#testElement').capture(viewController);
+			var boundViewController = $('#testElement').capture(viewController)[0];
 			
 			equal(boundViewController.element[0], $('#testElement')[0], 'captured element is same');
 			notEqual(viewController, boundViewController, 'The boundViewController is a new instance of viewController, and not the same');
 		});
+		
+		
+		test("Basic binding to two elements", function() {
+			var viewController = { init:function(){} };
+			
+			var boundViewController = $('.double').capture(viewController);
+			
+			
+			equal(boundViewController[0].element[0], $('.double')[0], 'captured element is first double');
+			equal(boundViewController[1].element[0], $('.double')[1], 'captured element is second double');
+
+		});
+		
 	
 	module("Initialisation", {teardown: teardown, setup: setup });
 	/*

@@ -88,7 +88,14 @@
 	 *	@public
 	 */
 	$.fn.capture = function(viewController){
-	    if(this.length === 0) {
+		// jQuery object containing element
+		var element = this;
+		
+		// Additional arguments passed
+		var optionalArguments;
+		
+		// No element passed, exit.
+	    if(element.length === 0) {
 		    return;
 		}
 		
@@ -98,14 +105,14 @@
 		viewController = $.extend({}, viewController);
 		
 		// Assign element property to viewController
-		viewController.element = this;
+		viewController.element = element;
 		
 		if(viewController.init) {
 			// Any addtional arguments are collated
-			var additionalArguments = slice.call(arguments, 1);
+			optionalArguments = slice.call(arguments, 1);
 			
 			// Execute init, sending additional arguments
-			viewController.init.apply(viewController, additionalArguments);
+			viewController.init.apply(viewController, optionalArguments);
 		}
 		
 		// Setup event delegates

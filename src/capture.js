@@ -11,13 +11,11 @@
 	var nativeBind = Function.prototype.bind;
 	var slice = Array.prototype.slice;
 	var toString = Object.prototype.toString;
-	
 	// All properties with prefix of 'on' are treated as event delegates
 	var eventMethodPrefix = /^on(.+)/;
 	
 	/**
-	 *	ECMAScript 5 bind method.
-	 *	Uses native bind if supported or passes to jQuery proxy.
+	 *	Native ECMAScript 5 bind if supported or passes to jQuery proxy.
 	 *	
 	 *	@param	{function}	fn		Function to bind.
 	 *	@param	{object}	context Scope in which the function is bound.
@@ -29,18 +27,16 @@
 		return $.proxy(fn, context);
 	}
 	
-	/** USE xeys-description.js as basis of formatting*/
-	function setupEventDelegates(viewController) {
-		
-		var eventDelegate, eventType, method, selector;
-		
+	function attachEventDelegates(viewController) {
+		var eventDelegate;
+		var	eventType;
+		var	method;
+		var	selector;
 		var delegateElement = viewController.element;
 		
 		// Loop through all methods looking for event delegates
 		for(method in viewController) {
-		   if (viewController.hasOwnProperty(method) && 
-				method.match(eventMethodPrefix) && 
-				typeof viewController[method] === "object") {
+		   if (viewController.hasOwnProperty(method) && method.match(eventMethodPrefix) && typeof viewController[method] === "object") {
 			   // Event to delegate
 			   eventDelegate = viewController[method];
 
@@ -71,8 +67,7 @@
 		}
 	}
 	
-	
-	function isValid(viewController) {
+	function validate(viewController) {
 		if(!viewController) {
 			return logError('NO_VIEWCONTROLLER'); // TODO: Describe element it was attached to
 		}
@@ -82,41 +77,38 @@
 		}
 	}
 	
+	function newInstance(ViewController) {
+		return $.extend({}, ViewController);
+	}
+	
+	function initialise(viewController, additionalArgs, element) {
+		// Assign element property to instance
+		viewController.element = element;
+		
+		if(viewController.init) {
+			// Execute init, sending additional arguments
+			viewController.init.apply(viewController, additionalArgs);
+		}
+	}
+	
 	/**
 	 *	Capture loosely attaches a viewController to an element via event delegates.
-	 *	@param	{object}	viewController	The viewController which is attached to the element.
+	 *	@param	{object}	ViewController	The ViewController to be initialised from on the element
 	 *	@public
 	 */
-	$.fn.capture = function(viewController){
-		// jQuery object containing element
+	$.fn.capture = function(ViewController) {
+		var viewController;
 		var element = this;
 		
-		// Additional arguments passed
-		var optionalArguments;
-		
-		// No element passed, exit.
 	    if(element.length === 0) {
 		    return;
 		}
 		
-		isValid.call(this, viewController);
+		validate(ViewController);
 		
-		// Create new instance of
-		viewController = $.extend({}, viewController);
-		
-		// Assign element property to viewController
-		viewController.element = element;
-		
-		if(viewController.init) {
-			// Any addtional arguments are collated
-			optionalArguments = slice.call(arguments, 1);
-			
-			// Execute init, sending additional arguments
-			viewController.init.apply(viewController, optionalArguments);
-		}
-		
-		// Setup event delegates
-		setupEventDelegates(viewController);
+		viewController = newInstance(ViewController);
+		initialise(viewController, slice.call(arguments,1), element);
+		attachEventDelegates(viewController);
 				
 		return viewController;
 	};

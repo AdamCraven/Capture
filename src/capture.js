@@ -82,7 +82,7 @@
 	}
 	
 	function newInstance(ViewController) {
-		return $.extend({}, ViewController);
+		return $.extend(true, {}, ViewController);
 	}
 	
 	function initialise(viewController, additionalArgs, $element) {

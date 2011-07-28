@@ -4,6 +4,7 @@
 
     var testElement = '<div id="testElement">'+
                         '<a class="link"><a class="sub-link"></a></a>'+
+						'<div class="double"></div><div class="double"></div>'+
                       '</div>';
     
     function teardown() {
@@ -163,6 +164,32 @@
               equal(eventTriggered, 0);
               $('#testElement .sub-link').trigger('click');
               equal(eventTriggered, 1, 'count has increased after custom event');
+
+          });
+
+        test("Delegate assigned to multiple view controllers is seperate", function() {
+
+              var viewController = { 
+				  eventTriggered : 0,
+                  onclick : {
+                      element: function(){
+                          this.eventTriggered++;
+                      }
+                  }
+              };
+
+              var vcs = $('.double').capture(viewController);
+
+              
+              $('.double').eq(0).trigger('click');
+
+              equal(vcs[0].eventTriggered, 1, 'count has increased on instance');
+			  equal(vcs[1].eventTriggered, 0, 'but on the seperate instance, it hasn\'t');
+			
+			  $('.double').eq(1).trigger('click');
+
+              equal(vcs[0].eventTriggered, 1, 'count stayed same on other instance');
+			  equal(vcs[1].eventTriggered, 1, 'count has increased on instance');
 
           });
 		

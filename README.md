@@ -33,8 +33,9 @@ Will link an element with it's view controller.
   * Inheritance - Like this? $('el').capture(vc).prototypeIs({});
   * Object-oriented style function call	$.capture('el', vc);
   * Unbinding
-  * Element delegate without the need to supply element selector if just need one delegate.
 
 #Done;
 
   * Support for multiple elements
+  * Element delegate without the need to supply element selector if just need one delegate.
+

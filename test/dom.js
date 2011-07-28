@@ -86,6 +86,24 @@
 
           });
 
+        test("Delegate is on the same element, using element property", function() {
+              var eventTriggered = 0;
+
+              var viewController = { 
+                  onclick : {
+                      element: function(){
+                          eventTriggered++;
+                      }
+                  }
+              };
+
+              $('#testElement').capture(viewController);
+
+              equal(eventTriggered, 0);
+              $('#testElement .link').trigger('click');
+              equal(eventTriggered, 1, 'count has increased after custom event');
+
+          });
 
         test("Delegate is on all elements", function() {
               var eventTriggered = 0;
@@ -125,6 +143,25 @@
 
               equal(eventTriggered, 0);
               $('#testElement.newClass').trigger('click');
+              equal(eventTriggered, 1, 'count has increased after custom event');
+
+          });
+
+        test("Delegate is on all elements", function() {
+              var eventTriggered = 0;
+
+              var viewController = { 
+                  onclick : {
+                      '*': function(){
+                          eventTriggered++;
+                      }
+                  }
+              };
+
+              $('#testElement').capture(viewController);
+
+              equal(eventTriggered, 0);
+              $('#testElement .sub-link').trigger('click');
               equal(eventTriggered, 1, 'count has increased after custom event');
 
           });

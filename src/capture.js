@@ -32,7 +32,8 @@
 		var	eventType;
 		var	method;
 		var	selector;
-		var delegateElement = viewController.element;
+		var listenerElement = viewController.element;
+		var delegateFn;
 		
 		// Loop through all methods looking for event delegates
 		for(method in viewController) {
@@ -45,13 +46,16 @@
 			   
 			   for(selector in eventDelegate) { 
 				   if(eventDelegate.hasOwnProperty(selector)) {	
-						// If the selector is the same as the delegateElement
-						if(delegateElement.is(selector)) {
-							// Attached event to current element
-							delegateElement.bind(eventType, bind(eventDelegate[selector], viewController));
+						delegateFn = eventDelegate[selector];
+						
+						// If the selector is the same as the listenerElement
+						// Or using special 'element' property
+						if(listenerElement.is(selector) || delegateFn === eventDelegate.element) {
+							// Attach event to current element
+							listenerElement.bind(eventType, bind(delegateFn, viewController));
 						} else {
 							// Bind event delegate to the element. Setting the context to the viewController 
-							delegateElement.delegate(selector, eventType, bind(eventDelegate[selector], viewController));
+							listenerElement.delegate(selector, eventType, bind(delegateFn, viewController));
 						}
 				   }
 			   }
@@ -98,7 +102,7 @@
 	 */
 	$.fn.capture = function(ViewController) {
 		var viewController;
-		var viewControllers =[];
+		var viewControllers = [];
 		var $element = this;
 		
 	    if($element.length === 0 || !$element.each) {
@@ -113,9 +117,10 @@
 			initialise(viewController, slice.call(arguments, 1), $element.eq(i));
 			attachEventDelegates(viewController);
 			
-			viewControllers.push(viewController);
+			viewControllers[i] = viewController;
 		}
-				
+
+						
 		return viewControllers;
 	};
 	

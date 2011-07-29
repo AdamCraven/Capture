@@ -16,7 +16,6 @@
 	
 	/**
 	 *	Native ECMAScript 5 bind if supported or passes to jQuery proxy.
-	 *	
 	 *	@param	{function}	fn		Function to bind.
 	 *	@param	{object}	context Scope in which the function is bound.
 	 */
@@ -100,13 +99,12 @@
 	
 	/**
 	 *	Connect the view controller and element together
-	 *
 	 *	@returns {object} New instance of an initalised view controller
 	 */
-	function connectViewController($element, ViewController, optionalArgs) {		
+	function connectViewController(element, ViewController, optionalArgs) {		
 		var instance = newInstance(ViewController);
 		
-		instance.element = $element;
+		instance.element = element;
 		
 		if(instance.init) {
 			instance.init.apply(instance, optionalArgs);
@@ -128,12 +126,13 @@
 		
 		validate(ViewController);
 		
-		var $element = this;
+		var element = this;
 		var optionalArgs = (arguments.length > 1) ? slice.call(arguments, 1) : undefined;
 		var instances = [];
+		var i;
 		
-		for (var i=0; i < $element.length; i++) {
-			instances[i] = connectViewController($element.eq(i), ViewController, optionalArgs);
+		for (i = 0; i < element.length; i++) {
+			instances[i] = connectViewController(element.eq(i), ViewController, optionalArgs);
 		}
 		
 		return instances;

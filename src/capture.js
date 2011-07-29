@@ -21,13 +21,13 @@
 	 *	@param	{object}	context Scope in which the function is bound.
 	 */
 	function bind(fn, context) {
-		if (fn.bind === nativeBind && nativeBind) {
+		if (nativeBind && fn.bind === nativeBind) {
 			return nativeBind.apply(fn, slice.call(arguments, 1));
 		}
 		return $.proxy(fn, context);
 	}
 	
-	function attachEventDelegates(viewController) {
+	function bindEventDelegates(viewController) {
 		var eventDelegate;
 		var eventType;
 		var method;
@@ -86,21 +86,21 @@
 		return $.extend(true, {}, ViewController);
 	}
 	
-	function initialise($element, viewController, optionalArgs) {
-		// Assign element property to instance
-		viewController.element = $element;
-		
-		if(viewController.init) {
-			// Execute init, sending additional arguments
-			viewController.init.apply(viewController, optionalArgs);
-		}
-	}
-	
+	/**
+	 *	Connect the view controller and element together
+	 *
+	 *	@returns {object} New instance of an initalised view controller
+	 */
 	function connectViewController($element, ViewController, optionalArgs) {		
 		var instance = newInstance(ViewController);
 		
-		initialise($element, instance, optionalArgs);
-		attachEventDelegates(instance);
+		instance.element = $element;
+		
+		if(instance.init) {
+			instance.init.apply(instance, optionalArgs);
+		}
+		
+		bindEventDelegates(instance);
 		
 		return instance;
 	}
@@ -114,11 +114,11 @@
 	$.fn.capture = function(ViewController) {
 		if(this.length === 0 || !this.each) { return; }
 		
+		validate(ViewController);
+		
 		var $element = this;
 		var optionalArgs = (arguments.length > 1) ? slice.call(arguments, 1) : undefined;
 		var instances = [];
-		
-		validate(ViewController);
 		
 		for (var i=0; i < $element.length; i++) {
 			instances[i] = connectViewController($element.eq(i), ViewController, optionalArgs);

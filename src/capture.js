@@ -27,40 +27,52 @@
 		return $.proxy(fn, context);
 	}
 	
+	/**
+	 *	Binds methods, that have the valid prefix 'on', to the element
+	 *	
+	 *	@example view controller method the function will bind event delegates with
+	 *
+	 *		onclick : { 
+	 *			'.selector' : function(e) { 
+	 *			
+	 *			}		
+	 *		}
+	 *
+	 */
 	function bindEventDelegates(viewController) {
-		var eventDelegate;
+		var eventHolder;
 		var eventType;
 		var method;
 		var selector;
 		var listenerElement = viewController.element;
-		var delegateFn;
-		
+		var handlerFn;
+
 		// Loop through all methods looking for event delegates
 		for(method in viewController) {
-		   if (viewController.hasOwnProperty(method) && method.match(eventMethodPrefix) && typeof viewController[method] === "object") {
-			   // Event to delegate
-			   eventDelegate = viewController[method];
-
-			   // e.g. click
-			   eventType = method.match(eventMethodPrefix)[1];
-			   
-			   for(selector in eventDelegate) { 
-				   if(eventDelegate.hasOwnProperty(selector)) { 
-						delegateFn = eventDelegate[selector];
-						
+			if (viewController.hasOwnProperty(method) && 
+				method.match(eventMethodPrefix) && 
+				typeof viewController[method] === "object") 
+			{
+				eventHolder = viewController[method];
+				// e.g. click
+				eventType = method.match(eventMethodPrefix)[1];
+				
+				for(selector in eventHolder) { 
+					if(eventHolder.hasOwnProperty(selector)) { 
+						handlerFn = eventHolder[selector];
 						// If the selector is the same as the listenerElement
 						// Or using special 'element' property
-						if(listenerElement.is(selector) || delegateFn === eventDelegate.element) {
+						if(listenerElement.is(selector) || handlerFn === eventHolder.element) {
 							// Attach event to current element
 							// RADAR: What about selector changes on parent element?
-							listenerElement.bind(eventType, bind(delegateFn, viewController));
+							listenerElement.bind(eventType, bind(handlerFn, viewController));
 						} else {
 							// Bind event delegate to the element. Setting the context to the viewController 
-							listenerElement.delegate(selector, eventType, bind(delegateFn, viewController));
+							listenerElement.delegate(selector, eventType, bind(handlerFn, viewController));
 						}
-				   }
-			   }
-		   }  
+					}
+				}
+			}  
 		}
 	}
 	

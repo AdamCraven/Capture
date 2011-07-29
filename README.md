@@ -1,6 +1,6 @@
 
 #Capture.js
-## - View Controllers for jQuery
+##View Controllers for jQuery
 
 Attach an object to an element seamlessly using Capture.
 

@@ -29,9 +29,9 @@
 	
 	function attachEventDelegates(viewController) {
 		var eventDelegate;
-		var	eventType;
-		var	method;
-		var	selector;
+		var eventType;
+		var method;
+		var selector;
 		var listenerElement = viewController.element;
 		var delegateFn;
 		
@@ -45,13 +45,14 @@
 			   eventType = method.match(eventMethodPrefix)[1];
 			   
 			   for(selector in eventDelegate) { 
-				   if(eventDelegate.hasOwnProperty(selector)) {	
+				   if(eventDelegate.hasOwnProperty(selector)) { 
 						delegateFn = eventDelegate[selector];
 						
 						// If the selector is the same as the listenerElement
 						// Or using special 'element' property
 						if(listenerElement.is(selector) || delegateFn === eventDelegate.element) {
 							// Attach event to current element
+							// RADAR: What about selector changes on parent element?
 							listenerElement.bind(eventType, bind(delegateFn, viewController));
 						} else {
 							// Bind event delegate to the element. Setting the context to the viewController 
@@ -85,15 +86,25 @@
 		return $.extend(true, {}, ViewController);
 	}
 	
-	function initialise(viewController, additionalArgs, $element) {
+	function initialise($element, viewController, optionalArgs) {
 		// Assign element property to instance
 		viewController.element = $element;
 		
 		if(viewController.init) {
 			// Execute init, sending additional arguments
-			viewController.init.apply(viewController, additionalArgs);
+			viewController.init.apply(viewController, optionalArgs);
 		}
 	}
+	
+	function connectViewController($element, ViewController, optionalArgs) {		
+		var instance = newInstance(ViewController);
+		
+		initialise($element, instance, optionalArgs);
+		attachEventDelegates(instance);
+		
+		return instance;
+	}
+	
 	
 	/**
 	 *	Capture loosely attaches a viewController to an element via event delegates.
@@ -101,27 +112,19 @@
 	 *	@public
 	 */
 	$.fn.capture = function(ViewController) {
-		var viewController;
-		var viewControllers = [];
-		var $element = this;
+		if(this.length === 0 || !this.each) { return; }
 		
-	    if($element.length === 0 || !$element.each) {
-		    return;
-		}
+		var $element = this;
+		var optionalArgs = (arguments.length > 1) ? slice.call(arguments, 1) : undefined;
+		var instances = [];
 		
 		validate(ViewController);
 		
-		// For each element, add a new viewController
 		for (var i=0; i < $element.length; i++) {
-			viewController = newInstance(ViewController);
-			initialise(viewController, slice.call(arguments, 1), $element.eq(i));
-			attachEventDelegates(viewController);
-			
-			viewControllers[i] = viewController;
+			instances[i] = connectViewController($element.eq(i), ViewController, optionalArgs);
 		}
-
-						
-		return viewControllers;
+		
+		return instances;
 	};
 	
 

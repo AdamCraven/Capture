@@ -70,8 +70,6 @@
         }
     }
 
-
-
     function logError(error) {
         if (console && console.error) {
             console.error(error);
@@ -79,8 +77,6 @@
             throw new Error(error);
         }
     }
-
-
 
     function validate(viewController) {
         if (!viewController) {

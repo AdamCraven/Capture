@@ -5,28 +5,28 @@
  *  Copyright 2011 Adam Craven
  *  https://github.com/AdmCrvn/Capture
  */
-(function($){
-  "use strict";
-  
-  var nativeBind = Function.prototype.bind;
-  var slice = Array.prototype.slice;
-  var toString = Object.prototype.toString;
-  // All properties with prefix of 'on' are treated as event delegates
-  var eventMethodPrefix = /^on(.+)/;
-  
-  /**
+ (function($) {
+    "use strict";
+
+    var nativeBind = Function.prototype.bind;
+    var slice = Array.prototype.slice;
+    var toString = Object.prototype.toString;
+    // All properties with prefix of 'on' are treated as event delegates
+    var eventMethodPrefix = /^on(.+)/;
+
+    /**
    *  Native ECMAScript 5 bind if supported or passes to jQuery proxy.
    *  @param  {function}  fn    Function to bind.
    *  @param  {object}  context Scope in which the function is bound.
    */
-  function bind(fn, context) {
-    if (nativeBind && fn.bind === nativeBind) {
-      return nativeBind.apply(fn, slice.call(arguments, 1));
+    function bind(fn, context) {
+        if (nativeBind && fn.bind === nativeBind) {
+            return nativeBind.apply(fn, slice.call(arguments, 1));
+        }
+        return $.proxy(fn, context);
     }
-    return $.proxy(fn, context);
-  }
-  
-  /**
+
+    /**
    *  Binds methods that have the valid prefix 'on', to the element
    *  
    *  @example view controller method the function will bind event delegates with
@@ -36,97 +36,99 @@
    *      }   
    *    }
    */
-  function bindEventDelegates(viewController) {
-    var eventHolder;
-    var eventType;
-    var method;
-    var selector;
-    var listenerElement = viewController.element;
-    var handlerFn;
+    function bindEventDelegates(viewController) {
+        var eventHolder;
+        var eventType;
+        var method;
+        var selector;
+        var listenerElement = viewController.element;
+        var handlerFn;
 
-    // Loop through all methods looking for event delegates
-    for(method in viewController) {
-      if (viewController.hasOwnProperty(method) && 
-        method.match(eventMethodPrefix) && 
-        typeof viewController[method] === "object") 
-      {
-        eventHolder = viewController[method];
-        // e.g. click
-        eventType = method.match(eventMethodPrefix)[1];
-        
-        for(selector in eventHolder) { 
-          if(eventHolder.hasOwnProperty(selector)) { 
-            handlerFn = eventHolder[selector];
-            // If the selector is the same as the listenerElement
-            // Or using special 'element' property
-            if(listenerElement.is(selector) || handlerFn === eventHolder.element) {
-              // Attach event to current element
-              // RADAR: What about selector changes on element?
-              listenerElement.bind(eventType, bind(handlerFn, viewController));
-            } else {
-              // Bind event delegate to the element. Setting the context to the viewController 
-              listenerElement.delegate(selector, eventType, bind(handlerFn, viewController));
+        // Loop through all methods looking for event delegates
+        for (method in viewController) {
+            if (viewController.hasOwnProperty(method) &&
+            method.match(eventMethodPrefix) &&
+            typeof viewController[method] === "object")
+            {
+                eventHolder = viewController[method];
+                // e.g. click
+                eventType = method.match(eventMethodPrefix)[1];
+
+                for (selector in eventHolder) {
+                    if (eventHolder.hasOwnProperty(selector)) {
+                        handlerFn = eventHolder[selector];
+                        // If the selector is the same as the listenerElement
+                        // Or using special 'element' property
+                        if (listenerElement.is(selector) || handlerFn === eventHolder.element) {
+                            // Attach event to current element
+                            // RADAR: What about selector changes on element?
+                            listenerElement.bind(eventType, bind(handlerFn, viewController));
+                        } else {
+                            // Bind event delegate to the element. Setting the context to the viewController
+                            listenerElement.delegate(selector, eventType, bind(handlerFn, viewController));
+                        }
+                    }
+                }
             }
-          }
         }
-      }  
     }
-  }
-  
-  function logError(error) {
-    if(console && console.error) {
-      console.error(error);
-    } else {
-      throw new Error(error);
+
+    function logError(error) {
+        if (console && console.error) {
+            console.error(error);
+        } else {
+            throw new Error(error);
+        }
     }
-  }
-  
-  function validate(viewController) {
-    if(!viewController) {
-      return logError('NO_VIEWCONTROLLER'); // TODO: Describe element it was attached to
+
+    function validate(viewController) {
+        if (!viewController) {
+            return logError('NO_VIEWCONTROLLER');
+            // TODO: Describe element it was attached to
+        }
+
+        if (toString.call(viewController) !== '[object Object]') {
+            return logError('VIEWCONTROLLER_MUST_BE_OBJECT');
+        }
     }
-    
-    if(toString.call(viewController) !== '[object Object]') {
-      return logError('VIEWCONTROLLER_MUST_BE_OBJECT');
-    }
-  }
-  
-  /**
+
+    /**
    *  Connect the view controller and element together
    *  @returns {object} New instance of an initalised view controller
    */
-  function connectViewController(element, viewController, optionalArgs) {   
-        
-    viewController.element = element;
-    
-    if(viewController.init && viewController.hasOwnProperty('init')) {
-      viewController.init.apply(viewController, optionalArgs);
+    function connectViewController(element, viewController, optionalArgs) {
+
+        viewController.element = element;
+
+        if (viewController.init && viewController.hasOwnProperty('init')) {
+            viewController.init.apply(viewController, optionalArgs);
+        }
+
+        bindEventDelegates(viewController);
+
+        return viewController;
     }
-    
-    bindEventDelegates(viewController);
-    
-    return viewController;
-  }
-  
-  /**
+
+    /**
    *  Capture loosely attaches a viewController to an element via event delegates.
    *  @param  {object}  viewController  The ViewController to be initialised from on the element
    *  @public
    */
-  $.fn.capture = function(viewController) {
-    if(this.length === 0 || !this.each) { return; }
-    
-    var element = this;
-    var optionalArgs = (arguments.length > 1) ? slice.call(arguments, 1) : undefined;
-    
-    validate(viewController);
-    
-    return connectViewController(element.eq(0), viewController, optionalArgs);
-  };
-  
-  
-  // TODO: toolbar prototype {}?
-  // What about hasInProperty on prototype
-  // No instantiation? 
+    $.fn.capture = function(viewController) {
+        if (this.length === 0 || !this.each) {
+            return;
+        }
 
+        var element = this;
+        var optionalArgs = (arguments.length > 1) ? slice.call(arguments, 1) : undefined;
+
+        validate(viewController);
+
+        return connectViewController(element.eq(0), viewController, optionalArgs);
+    };
+
+
+    // TODO: toolbar prototype {}?
+    // What about hasInProperty on prototype
+    // No instantiation?
 })(jQuery);

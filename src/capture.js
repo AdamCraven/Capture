@@ -30,13 +30,11 @@
 	 *	Binds methods that have the valid prefix 'on', to the element
 	 *	
 	 *	@example view controller method the function will bind event delegates with
-	 *
 	 *		onclick : { 
 	 *			'.selector' : function(e) { 
 	 *			
 	 *			}		
 	 *		}
-	 *
 	 */
 	function bindEventDelegates(viewController) {
 		var eventHolder;

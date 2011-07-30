@@ -1,7 +1,8 @@
 /*jslint*/
 
 (function(){
-
+	
+	
 	function teardown() {
 		$('#testElement').remove();
 	}
@@ -25,53 +26,77 @@
 			equal(boundViewController.element[0], $('#testElement')[0], 'captured element is same');
 			strictEqual(viewController, boundViewController, 'The boundViewController is not a new instance of viewController, and not the same');
 		});
+		
+		test("Methods in the prototype are not called by capture", function() {
+			function ViewController() {
+				// Empty
+			}
+			ViewController.prototype.init = function() {
+				ok(false,'Init in prototype will never execute');
+			};
+			ViewController.prototype.onclick = {
+				'#testElement' : function(e) {}
+			};
+			
+			var viewController = new ViewController();
+			var boundViewController = $('#testElement').capture(viewController);
+			
+			ok(typeof $('#testElement').data('events') === "undefined", 'valid onclick in the prototype will not bind');
+		});
 	
 	module("Initialisation", {teardown: teardown, setup: setup });
-	/*
 		test("Fail when no viewController sent", function() {
-		 
+			var errorMsg;
+			
 			try {
 				$('#testElement').capture();
 			} catch(e) {
-				equal(e, 'NO_VIEWCONTROLLER');
+				errorMsg = e.message || e; // Console.error object (if supported) or throw
+				equal(errorMsg, 'NO_VIEWCONTROLLER');	
 			}
 		
 			expect(1);
 		});
 		
 		test("Functions are invalid viewControllers", function() {
-			 
+			var errorMsg;
+			
 			try {
 				$('#testElement').capture(function() {});
 			} catch(e) {
-				equal(e, 'VIEWCONTROLLER_MUST_BE_OBJECT');
+				errorMsg = e.message || e; // Console.error object (if supported) or throw
+				equal(errorMsg, 'VIEWCONTROLLER_MUST_BE_OBJECT');
 			}
 			
 			expect(1);
 		});
 		
 		test("Arrays are invalid viewControllers", function() {
-			 
+			var errorMsg;
+			
 			try {
 				$('#testElement').capture([]);
 			} catch(e) {
-				equal(e, 'VIEWCONTROLLER_MUST_BE_OBJECT');
+				errorMsg = e.message || e;  // Console.error object (if supported) or throw
+				equal(errorMsg, 'VIEWCONTROLLER_MUST_BE_OBJECT');
 			}
 			
 			expect(1);
 		});
 		
 		test("Strings are invalid viewControllers", function() {
+			var errorMsg;
 
 			try {
 				$('#testElement').capture('Strings are invalid');
 			} catch(e) {
-				equal(e, 'VIEWCONTROLLER_MUST_BE_OBJECT');
+				errorMsg = e.message || e; // Console.error object (if supported) or throw
+				equal(errorMsg, 'VIEWCONTROLLER_MUST_BE_OBJECT');
 			}
 			
 			expect(1);
 		});
-		*/
+		
 		test("Extra arguments are sent to init function", function() {
 			
 			var options = {};

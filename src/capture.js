@@ -101,7 +101,7 @@
 				
 		viewController.element = element;
 		
-		if(viewController.init) {
+		if(viewController.init && viewController.hasOwnProperty('init')) {
 			viewController.init.apply(viewController, optionalArgs);
 		}
 		

@@ -89,6 +89,10 @@
 	
 	<script>
 		function Clicker2() {
+			this.init = function(){
+				//console.log(this.constructor);
+				this.constructor.prototype.init.call(this, arguments);
+			}
 			this.onclick = {
 				'h1' : function(e) {
 					console.log('h1 clicked');

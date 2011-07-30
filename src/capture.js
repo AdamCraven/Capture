@@ -5,7 +5,7 @@
  *  Copyright 2011 Adam Craven
  *  https://github.com/AdmCrvn/Capture
  */
- (function($) {
+(function($) {
     "use strict";
 
     var nativeBind = Function.prototype.bind;
@@ -15,10 +15,10 @@
     var eventMethodPrefix = /^on(.+)/;
 
     /**
-   *  Native ECMAScript 5 bind if supported or passes to jQuery proxy.
-   *  @param  {function}  fn    Function to bind.
-   *  @param  {object}  context Scope in which the function is bound.
-   */
+     *  Native ECMAScript 5 bind if supported or passes to jQuery proxy.
+     *  @param  {function}  fn    Function to bind.
+     *  @param  {object}  context Scope in which the function is bound.
+     */
     function bind(fn, context) {
         if (nativeBind && fn.bind === nativeBind) {
             return nativeBind.apply(fn, slice.call(arguments, 1));
@@ -27,15 +27,15 @@
     }
 
     /**
-   *  Binds methods that have the valid prefix 'on', to the element
-   *  
-   *  @example view controller method the function will bind event delegates with
-   *    onclick : { 
-   *      '.selector' : function(e) { 
-   *      
-   *      }   
-   *    }
-   */
+     *  Binds methods that have the valid prefix 'on', to the element
+     *  
+     *  @example view controller method the function will bind event delegates with
+     *    onclick : { 
+     *      '.selector' : function(e) { 
+     *      
+     *      }   
+     *    }
+     */
     function bindEventDelegates(viewController) {
         var eventHolder;
         var eventType;
@@ -46,10 +46,7 @@
 
         // Loop through all methods looking for event delegates
         for (method in viewController) {
-            if (viewController.hasOwnProperty(method) &&
-            method.match(eventMethodPrefix) &&
-            typeof viewController[method] === "object")
-            {
+            if (viewController.hasOwnProperty(method) && method.match(eventMethodPrefix) && typeof viewController[method] === "object") {
                 eventHolder = viewController[method];
                 // e.g. click
                 eventType = method.match(eventMethodPrefix)[1];
@@ -73,6 +70,8 @@
         }
     }
 
+
+
     function logError(error) {
         if (console && console.error) {
             console.error(error);
@@ -80,6 +79,8 @@
             throw new Error(error);
         }
     }
+
+
 
     function validate(viewController) {
         if (!viewController) {
@@ -93,9 +94,9 @@
     }
 
     /**
-   *  Connect the view controller and element together
-   *  @returns {object} New instance of an initalised view controller
-   */
+     *  Connect the view controller and element together
+     *  @returns {object} New instance of an initalised view controller
+     */
     function connectViewController(element, viewController, optionalArgs) {
 
         viewController.element = element;
@@ -110,10 +111,10 @@
     }
 
     /**
-   *  Capture loosely attaches a viewController to an element via event delegates.
-   *  @param  {object}  viewController  The ViewController to be initialised from on the element
-   *  @public
-   */
+     *  Capture loosely attaches a viewController to an element via event delegates.
+     *  @param  {object}  viewController  The ViewController to be initialised from on the element
+     *  @public
+     */
     $.fn.capture = function(viewController) {
         if (this.length === 0 || !this.each) {
             return;
@@ -126,7 +127,6 @@
 
         return connectViewController(element.eq(0), viewController, optionalArgs);
     };
-
 
     // TODO: toolbar prototype {}?
     // What about hasInProperty on prototype

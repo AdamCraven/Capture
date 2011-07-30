@@ -123,8 +123,5 @@
 
         return connectViewController(element.eq(0), viewController, optionalArgs);
     };
-
-    // TODO: toolbar prototype {}?
-    // What about hasInProperty on prototype
-    // No instantiation?
+    
 })(jQuery);

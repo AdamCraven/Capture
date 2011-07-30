@@ -45,58 +45,7 @@
 		});
 	
 	module("Initialisation", {teardown: teardown, setup: setup });
-		test("Fail when no viewController sent", function() {
-			var errorMsg;
-			
-			try {
-				$('#testElement').capture();
-			} catch(e) {
-				errorMsg = e.message || e; // Console.error object (if supported) or throw
-				equal(errorMsg, 'NO_VIEWCONTROLLER');	
-			}
-		
-			expect(1);
-		});
-		
-		test("Functions are invalid viewControllers", function() {
-			var errorMsg;
-			
-			try {
-				$('#testElement').capture(function() {});
-			} catch(e) {
-				errorMsg = e.message || e; // Console.error object (if supported) or throw
-				equal(errorMsg, 'VIEWCONTROLLER_MUST_BE_OBJECT');
-			}
-			
-			expect(1);
-		});
-		
-		test("Arrays are invalid viewControllers", function() {
-			var errorMsg;
-			
-			try {
-				$('#testElement').capture([]);
-			} catch(e) {
-				errorMsg = e.message || e;  // Console.error object (if supported) or throw
-				equal(errorMsg, 'VIEWCONTROLLER_MUST_BE_OBJECT');
-			}
-			
-			expect(1);
-		});
-		
-		test("Strings are invalid viewControllers", function() {
-			var errorMsg;
 
-			try {
-				$('#testElement').capture('Strings are invalid');
-			} catch(e) {
-				errorMsg = e.message || e; // Console.error object (if supported) or throw
-				equal(errorMsg, 'VIEWCONTROLLER_MUST_BE_OBJECT');
-			}
-			
-			expect(1);
-		});
-		
 		test("Extra arguments are sent to init function", function() {
 			
 			var options = {};

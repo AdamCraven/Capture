@@ -28,7 +28,7 @@ And this JavaScript
 Will link an element with it's view controller.
 
 
-As it's just a JavaScript object, this works too.;
+As it's just a JavaScript object, this works too;
 
 	function PictureViewController = function(){
 		this.init = function() {};
@@ -44,13 +44,17 @@ As it's just a JavaScript object, this works too.;
 	
 	$('#picture').capture(pictureViewController);
 	
-With the added difference a new instance is being created, so prototypal inheritance can be used and multiple view controllers attached to similar elements.
+With the added benefit of being able to instantiate multiple new View Controllers and use prototypal inheritance.
+
+
+
+
 
 ### Documentation
 
 #### The capture interface
 
-The interface isn't forced in capture. To create an object that works with capture it you can define an 'init' function and multiple 'on[EVENTTYPE]' objects, where event type can be any valid jQuery event (e.g. mouseover) or a custom event. Example;
+The interface isn't forced in capture. To create an object that works with capture it you can define an 'init' function and multiple 'onEVENT\_TYPE' objects, where EVENT\_TYPE can be any valid jQuery event (e.g. mouseover) or a custom event. Example;
 
 	{
 		init : function(options, moreOptions) {
@@ -71,11 +75,6 @@ The interface isn't forced in capture. To create an object that works with captu
 		}
 	};
 
-//TODO: Maybe?? You can force the interface by wrapping the object with 
-	
-	$.capture.viewController(
-		//Object here
-	)
 
 #### Attaching the same View Controllers to multiple elements
 
@@ -110,8 +109,4 @@ You must instantiate a new View Controller for each. If you do not, the 'this.el
 
   * Object-oriented style function call	$.capture('el', vc);
   * Unbinding
-
-#Done;
-
-  * Element delegate without the need to supply element selector if just need one delegate.
-
+  * Maybe?? Force the capture interface by wrapping the object with; $.capture.viewController(//Object here)

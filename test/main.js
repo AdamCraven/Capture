@@ -1,46 +1,5 @@
 /*jslint*/
 
-
-var vc = {
-	init : function(options, moreOptions) {
-		// The init function is exectued on capture, before event delegates have been assigned
-	},
-	onclick : {
-		element : function(e) {
-			// Will capture any 'click' events on this.element
-		},
-		'.selector' : function(e) {
-			// Will capture any 'click' events on this.element.find('.selector');
-		}
-	},
-	onmycustomevent: {
-		'.selector' : function(e) {
-			// Will capture any 'mycustomevent' events on this.element.find('.selector');
-		}
-	}
-	
-};
-
-function Vc(){
-	this.init = function(options, moreOptions) {
-		// The init function is exectued on capture, before event delegates have been assigned
-	};
-	this.onclick = {
-		element : function(e) {
-			// Will capture any 'click' events on this.element
-		},
-		'.selector' : function(e) {
-			// Will capture any 'click' events on this.element.find('.selector');
-		}
-	};
-	this.onmycustomevent = {
-		'.selector' : function(e) {
-			// Will capture any 'mycustomevent' events on this.element.find('.selector');
-		}
-	};
-	
-}
-
 (function(){
 	
 	

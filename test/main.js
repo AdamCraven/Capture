@@ -20,54 +20,11 @@
 
 		test("Basic binding to elements", function() {
 			var viewController = { init:function(){} };
-			var boundViewController = $('#testElement').capture(viewController)[0];
+			var boundViewController = $('#testElement').capture(viewController);
 			
 			equal(boundViewController.element[0], $('#testElement')[0], 'captured element is same');
-			notEqual(viewController, boundViewController, 'The boundViewController is a new instance of viewController, and not the same');
+			strictEqual(viewController, boundViewController, 'The boundViewController is not a new instance of viewController, and not the same');
 		});
-		
-		
-		test("Basic binding to two elements", function() {
-			var viewController = { init:function(){} };
-			
-			var boundViewController = $('.double').capture(viewController);
-			
-			
-			equal(boundViewController[0].element[0], $('.double')[0], 'captured element is first double');
-			equal(boundViewController[1].element[0], $('.double')[1], 'captured element is second double');
-
-		});
-		
-		test("Multiple view controllers are instances and do not share properties", function() {
-
-			  var viewController = { 
-				  eventTriggered : 0,
-				  testMethod : function() {},
-				  deepObject : {
-					deeper : {
-						deepest : {},
-						deepestFn : function() {}
-					}
-				  },
-				  onclick : {
-					  element: function(){
-						  this.eventTriggered++;
-					  }
-				  }
-			  };
-
-			  var vcs = $('.double').capture(viewController);
-
-			  notStrictEqual(vcs[0], vcs[1], 'View controller is a seperate instance');
-			  notStrictEqual(vcs[0].element, vcs[1].element, 'Objects are instances');
-			  notStrictEqual(vcs[0].deepObject, vcs[1].deepObject, 'Objects are instances');
-			  notStrictEqual(vcs[0].deepObject.deeper.deepest, vcs[1].deepest, 'Objects are instances');
-			  notStrictEqual(vcs[0].deepObject.deeper.deepestFn, vcs[1].deepObject.deeper.deepestFn, 'Functions are instances');
-			  notStrictEqual(vcs[0].testMethod, vcs[1].testMethod, 'Functions are instances');
-			  notStrictEqual(vcs[0].onclick, vcs[1].onclick, 'Objects are instances');
-
-		  });
-		
 	
 	module("Initialisation", {teardown: teardown, setup: setup });
 	/*

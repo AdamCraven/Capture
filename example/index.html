@@ -77,7 +77,40 @@
 			}
 		}
 		
-		$('.doubleTrouble').capture(doubleTrouble);
+		$('.doubleTrouble').eq(0).capture(doubleTrouble);
+		$('.doubleTrouble').eq(1).capture(doubleTrouble);
+	</script>
+	
+	<div id="clicker2"> 
+		<h1>Clickable h1</h1>
+		<h2>Hoverable h2</h2>
+	</div>
+	
+	
+	<script>
+		function Clicker2() {
+			this.onclick = {
+				'h1' : function(e) {
+					console.log('h1 clicked');
+				}
+			}
+		}
+
+		Clicker2.prototype.init = function() {
+			console.log('THIS WORKS');
+		};
+		
+		Clicker2.prototype.onmouseover = {
+			'h2' : function(e) {
+				console.log('h2 hover in prototype');
+			}
+		}
+
+		var viewControllerInstance = new Clicker2();
+		
+		$('#clicker2').capture(viewControllerInstance);
+		
+		
 	</script>
 	
 </body>

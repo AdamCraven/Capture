@@ -167,32 +167,5 @@
 
           });
 
-        test("Delegate assigned to multiple view controllers is seperate", function() {
-
-              var viewController = { 
-				  eventTriggered : 0,
-                  onclick : {
-                      element: function(){
-                          this.eventTriggered++;
-                      }
-                  }
-              };
-
-              var vcs = $('.double').capture(viewController);
-
-              
-              $('.double').eq(0).trigger('click');
-
-              equal(vcs[0].eventTriggered, 1, 'count has increased on instance');
-			  equal(vcs[1].eventTriggered, 0, 'but on the seperate instance, it hasn\'t');
-			
-			  $('.double').eq(1).trigger('click');
-
-              equal(vcs[0].eventTriggered, 1, 'count stayed same on other instance');
-			  equal(vcs[1].eventTriggered, 1, 'count has increased on instance');
-
-          });
-		
-		// TODO: Multi-element tests
     
 }());

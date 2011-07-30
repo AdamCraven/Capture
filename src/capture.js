@@ -93,50 +93,42 @@
 		}
 	}
 	
-	function newInstance(ViewController) {
-		return $.extend(true, {}, ViewController);
-	}
-	
 	/**
 	 *	Connect the view controller and element together
 	 *	@returns {object} New instance of an initalised view controller
 	 */
-	function connectViewController(element, ViewController, optionalArgs) {		
-		var instance = newInstance(ViewController);
+	function connectViewController(element, viewController, optionalArgs) {		
+				
+		viewController.element = element;
 		
-		instance.element = element;
-		
-		if(instance.init) {
-			instance.init.apply(instance, optionalArgs);
+		if(viewController.init) {
+			viewController.init.apply(viewController, optionalArgs);
 		}
 		
-		bindEventDelegates(instance);
+		bindEventDelegates(viewController);
 		
-		return instance;
+		return viewController;
 	}
-	
 	
 	/**
 	 *	Capture loosely attaches a viewController to an element via event delegates.
-	 *	@param	{object}	ViewController	The ViewController to be initialised from on the element
+	 *	@param	{object}	viewController	The ViewController to be initialised from on the element
 	 *	@public
 	 */
-	$.fn.capture = function(ViewController) {
+	$.fn.capture = function(viewController) {
 		if(this.length === 0 || !this.each) { return; }
-		
-		validate(ViewController);
 		
 		var element = this;
 		var optionalArgs = (arguments.length > 1) ? slice.call(arguments, 1) : undefined;
-		var instances = [];
-		var i;
 		
-		for (i = 0; i < element.length; i++) {
-			instances[i] = connectViewController(element.eq(i), ViewController, optionalArgs);
-		}
+		validate(viewController);
 		
-		return instances;
+		return connectViewController(element.eq(0), viewController, optionalArgs);
 	};
 	
+	
+	// TODO: toolbar prototype {}?
+	// What about hasInProperty on prototype
+	// No instantiation? 
 
 })(jQuery);

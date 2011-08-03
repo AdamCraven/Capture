@@ -1,11 +1,11 @@
-/*jslint evil: false, bitwise:false, strict: true, undef: true, white: false, onevar:false, browser:true, plusplus:false */
+/*jslint evil: false, bitwise:false, strict: true, undef: true, white:true, onevar:false, browser:true, plusplus:false */
 /*global jQuery, console:true */
 /*! 
  *  Capture.js
  *  Copyright 2011 Adam Craven
  *  https://github.com/AdmCrvn/Capture
  */
-(function($) {
+(function ($) {
     "use strict";
 
     var nativeBind = Function.prototype.bind;
@@ -111,17 +111,16 @@
      *  @param  {object}  viewController  The ViewController to be initialised from on the element
      *  @public
      */
-    $.fn.capture = function(viewController) {
+    $.fn.capture = function (viewController) {
         if (this.length === 0 || !this.each) {
             return;
         }
 
-        var element = this;
         var optionalArgs = (arguments.length > 1) ? slice.call(arguments, 1) : undefined;
 
         validate(viewController);
 
-        return connectViewController(element.eq(0), viewController, optionalArgs);
+        return connectViewController(this.eq(0), viewController, optionalArgs);
     };
     
 })(jQuery);

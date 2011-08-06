@@ -2,6 +2,8 @@
 #Capture.js
 ##View Controllers for jQuery
 
+v0.6.0
+
 Attach an object to an element seamlessly using Capture.
 
 With this HTML
@@ -27,7 +29,6 @@ And this JavaScript
 	
 Will link an element with it's view controller.
 
-
 As it's just a JavaScript object, this works too;
 
 	function PictureViewController = function(){
@@ -47,14 +48,11 @@ As it's just a JavaScript object, this works too;
 With the added benefit of being able to instantiate multiple new View Controllers and use prototypal inheritance.
 
 
-
-
-
 ### Documentation
 
 #### The capture interface
 
-The interface isn't forced in capture. To create an object that works with capture it you can define an 'init' function and multiple 'onEVENT\_TYPE' objects, where EVENT\_TYPE can be any valid jQuery event (e.g. mouseover) or a custom event. Example;
+The interface isn't forced in capture. To create an object that works with capture you can define an 'init' function and multiple 'onEVENT\_TYPE' objects, where EVENT\_TYPE can be any valid jQuery event (e.g. mouseover) or a custom event. Example;
 
 	{
 		init : function(options, moreOptions) {
@@ -80,11 +78,13 @@ The interface isn't forced in capture. To create an object that works with captu
 
 This is generally undesirable behaviour. View Controllers are an overall controller. For example, they shouldn't be used for individual .pictures in a #gallery. Instead, it should capture the #gallery itself. It is much faster and less heavy on memory.
 
-To prevent this, only one element can be captured at a time to prevent the same object being shared across two elements. 
+To prevent this, only one element can be captured at a time to prevent the same object being shared across two elements.
+
+When doing this;
 
 	$('.pictures').capture(pictureViewController);
 	
-Is really;
+It is really;
 
 	$('.pictures').eq(0).capture(pictureViewController);
 
@@ -102,7 +102,6 @@ You must instantiate a new View Controller for each. If you do not, the 'this.el
 		this.capture(new PaginationViewController)
 	};
 
-	
 	
 
 #Todo;

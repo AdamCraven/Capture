@@ -123,4 +123,29 @@
         return connectViewController(this.eq(0), viewController, optionalArgs);
     };
     
+    /**
+     * View Controller base constructor.
+     * When an object is wrapped with $.fn.capture.viewController, it inherits methods directly
+     * from this constructor
+     */
+    function ViewControllerBase() {}
+    
+    ViewControllerBase.prototype = {
+        remove : function () {
+            this.element.remove();
+        }
+    };
+    
+    /**
+     * This copies over the object to a new function, to inherit methods from capture
+     */
+    $.fn.capture.viewController = function (viewController) {
+        var viewControllerBase = new ViewControllerBase();
+
+        viewController = $.extend(true, viewControllerBase, viewController); 
+        
+        return viewController;
+        
+    };
+    
 })(jQuery);

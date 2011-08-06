@@ -118,5 +118,28 @@
 		
 	</script>
 	
+	
+	
+	<!-- View controller wrapper -->
+	
+	<div id="viewControllerWrapped">vcWrapped</div>
+	
+	
+	<script>
+		var vcWrapped = $.fn.capture.viewController({
+			init : function() {
+				console.log('ok, init',this);
+				this.remove();
+			}
+		});
+		
+		console.log('vcWrapped is',vcWrapped);
+		
+		
+		
+		var well = $('#viewControllerWrapped').capture(vcWrapped);
+		
+	</script>
+	
 </body>
 </html>

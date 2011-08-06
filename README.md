@@ -101,7 +101,6 @@ You must instantiate a new View Controller for each. If you do not, the 'this.el
 	$('.pagination').each(function() {
 		this.capture(new PaginationViewController)
 	};
-
 	
 
 #Todo;

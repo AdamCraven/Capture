@@ -15,7 +15,7 @@
 	    
 	    test("Wrapping an already instantiated object with ViewController initialises correctly", function() {
 	        var newObj = {init: function() {}};
-	        var viewController = $.fn.capture.viewController(newObj);
+	        var viewController = $.fn.capture.view(newObj);
 	        
 	        notEqual(newObj, viewController, 'A new instance of view controller has been created');
 	        ok(viewController.remove, 'viewController has inherited a method from the viewControllerBase prototype');

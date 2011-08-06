@@ -36,18 +36,18 @@
      *      }   
      *    }
      */
-    function bindEventDelegates(viewController) {
+    function bindEventDelegates(view) {
         var eventHolder;
         var eventType;
         var method;
         var selector;
-        var listenerElement = viewController.element;
+        var listenerElement = view.element;
         var handlerFn;
 
         // Loop through all methods looking for event delegates
-        for (method in viewController) {
-            if (viewController.hasOwnProperty(method) && method.match(eventMethodPrefix) && typeof viewController[method] === "object") {
-                eventHolder = viewController[method];
+        for (method in view) {
+            if (view.hasOwnProperty(method) && method.match(eventMethodPrefix) && typeof view[method] === "object") {
+                eventHolder = view[method];
                 // e.g. click
                 eventType = method.match(eventMethodPrefix)[1];
 
@@ -59,10 +59,10 @@
                         if (listenerElement.is(selector) || handlerFn === eventHolder.element) {
                             // Attach event to current element
                             // RADAR: What about selector changes on element?
-                            listenerElement.bind(eventType, bind(handlerFn, viewController));
+                            listenerElement.bind(eventType, bind(handlerFn, view));
                         } else {
-                            // Bind event delegate to the element. Setting the context to the viewController
-                            listenerElement.delegate(selector, eventType, bind(handlerFn, viewController));
+                            // Bind event delegate to the element. Setting the context to the view
+                            listenerElement.delegate(selector, eventType, bind(handlerFn, view));
                         }
                     }
                 }
@@ -78,13 +78,13 @@
         }
     }
 
-    function validate(viewController) {
-        if (!viewController) {
+    function validate(view) {
+        if (!view) {
             return logError('NO_VIEWCONTROLLER');
             // TODO: Describe element it was attached to
         }
 
-        if (toString.call(viewController) !== '[object Object]') {
+        if (toString.call(view) !== '[object Object]') {
             return logError('VIEWCONTROLLER_MUST_BE_OBJECT');
         }
     }
@@ -93,44 +93,44 @@
      *  Connect the view controller and element together
      *  @returns {object} New instance of an initalised view controller
      */
-    function connectViewController(element, viewController, optionalArgs) {
+    function connectView(element, view, optionalArgs) {
 
-        viewController.element = element;
+        view.element = element;
 
-        if (viewController.init && viewController.hasOwnProperty('init')) {
-            viewController.init.apply(viewController, optionalArgs);
+        if (view.init && view.hasOwnProperty('init')) {
+            view.init.apply(view, optionalArgs);
         }
 
-        bindEventDelegates(viewController);
+        bindEventDelegates(view);
 
-        return viewController;
+        return view;
     }
 
     /**
-     *  Capture loosely attaches a viewController to an element via event delegates.
-     *  @param  {object}  viewController  The ViewController to be initialised from on the element
+     *  Capture loosely attaches a view to an element via event delegates.
+     *  @param  {object}  view  The View to be initialised from on the element
      *  @public
      */
-    $.fn.capture = function (viewController) {
+    $.fn.capture = function (view) {
         if (this.length === 0 || !this.each) {
             return;
         }
 
         var optionalArgs = (arguments.length > 1) ? slice.call(arguments, 1) : undefined;
 
-        validate(viewController);
+        validate(view);
 
-        return connectViewController(this.eq(0), viewController, optionalArgs);
+        return connectView(this.eq(0), view, optionalArgs);
     };
     
     /**
      * View Controller base constructor.
-     * When an object is wrapped with $.fn.capture.viewController, it inherits methods directly
+     * When an object is wrapped with $.fn.capture.view, it inherits methods directly
      * from this constructor
      */
-    function ViewControllerBase() {}
+    function ViewBase() {}
     
-    ViewControllerBase.prototype = {
+    ViewBase.prototype = {
         remove : function () {
             this.element.remove();
         }
@@ -139,12 +139,12 @@
     /**
      * This copies over the object to a new function, to inherit methods from capture
      */
-    $.fn.capture.viewController = function (viewController) {
-        var viewControllerBase = new ViewControllerBase();
+    $.fn.capture.view = function (view) {
+        var viewBase = new ViewBase();
 
-        viewController = $.extend(true, viewControllerBase, viewController); 
+        view = $.extend(true, viewBase, view); 
         
-        return viewController;
+        return view;
         
     };
     

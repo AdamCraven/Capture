@@ -105,6 +105,20 @@
 
         return view;
     }
+    
+    /**
+     * View Controller base constructor.
+     * When an object is wrapped with $.fn.capture.view, it inherits methods directly
+     * from this constructor
+     * @constructor
+     */
+    function ViewBaseClass() {}
+    
+    ViewBaseClass.prototype = {
+        remove : function () {
+            this.element.remove();
+        }
+    };
 
     /**
      *  Capture loosely attaches a view to an element via event delegates.
@@ -122,30 +136,29 @@
 
         return connectView(this.eq(0), view, optionalArgs);
     };
-    
-    /**
-     * View Controller base constructor.
-     * When an object is wrapped with $.fn.capture.view, it inherits methods directly
-     * from this constructor
-     */
-    function ViewBase() {}
-    
-    ViewBase.prototype = {
-        remove : function () {
-            this.element.remove();
-        }
-    };
-    
-    /**
-     * This copies over the object to a new function, to inherit methods from capture
-     */
-    $.fn.capture.view = function (view) {
-        var viewBase = new ViewBase();
 
-        view = $.extend(true, viewBase, view); 
+    
+    /**
+     * Any function or object this wraps it immediately instantiates and sets inheritance from
+     * view base class.
+     */
+    $.fn.capture.view = function (View) {
+        var view;
+        var viewBase;
         
-        return view;
+        // If we've been passed a constructor
+        if (typeof View === "function") {
+            view = new View();
+        } else {
+            view = View;
+        }
+        
+        viewBase = new ViewBaseClass();
+        
+        // Deep copy view into newly instantied viewBase
+        return $.extend(true, viewBase, view); 
         
     };
+    
     
 })(jQuery);

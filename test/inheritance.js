@@ -23,6 +23,8 @@
         test('Remove method is inherited from baseClass', function() {
             var picture = {};
             var newPic = $.fn.capture.view(picture);
+            newPic = $('#testElement').capture(newPic);
+            
             
             ok(newPic.remove, 'remove has been inherited from base-class');
             
@@ -31,6 +33,8 @@
         test('Remove method overwritten from baseClass', function() {
             var picture = { remove : function () {} };
             var newPic = $.fn.capture.view(picture);
+            newPic = $('#testElement').capture(newPic);
+            
             
             equal(newPic.remove, picture.remove, 'remove not inherited from base class');
             
@@ -40,7 +44,7 @@
             }
         });
         
-        test("Ensure when initalised, properties and objects not shared with original", function() {
+        test("When initalised, properties and objects is not the same as the original", function() {
             var picture = {
                 init: function() {},
                 onclick : {
@@ -56,6 +60,7 @@
                 
             
             var newPic = $.fn.capture.view(picture);
+            newPic = $('#testElement').capture(newPic);
             
             equal(newPic.init, picture.init, 'Method same');
             notEqual(newPic.onclick, picture.onclick, 'Object different');
@@ -80,8 +85,9 @@
             }
                 
             var newPic = $.fn.capture.view(Picture);
+            newPic = $('#testElement').capture(newPic);
             
-            ok(typeof newPic.onclick === "object", 'We can\'t examine methods in constructor, so check a method has initalised');
+            ok(typeof newPic.onclick === "object", 'We can\'t examine methods in Picture constructor, so just check a method has initalised');
 
         });
         
@@ -102,6 +108,8 @@
             };
             
             var newPic = $.fn.capture.view(Picture);
+            newPic = $('#testElement').capture(newPic);
+            
             
             equal(newPic.init, Picture.prototype.init, 'Method same');
             notEqual(newPic.onclick, Picture.prototype.onclick, 'Object different');
@@ -109,6 +117,28 @@
             notEqual(newPic.anArray, Picture.prototype.anArray, 'Array different');
             notEqual(newPic.someProperty.deeper.deepest, Picture.prototype.someProperty.deeper.deepest, 'Object different');
         });
+        
+        test("New instance everytime accessed", function() {                
+            var newPic = $.fn.capture.view({
+                init: function() {},
+                onclick : {
+                    "#testElement" : function() {}
+                },
+                someProperty : {
+                    deeper : {
+                        deepest : {}
+                    }
+                },
+                anArray : [1,2,3]
+            });
+            
+            
+            var newPicCaptured = $('#testElement').capture(newPic);
+            var newPicCaptured2 = $('#testElement').capture(newPic);
+            
+            notEqual(newPicCaptured, newPicCaptured2);
+        });
+        
         
     
 }());

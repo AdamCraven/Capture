@@ -115,6 +115,9 @@
             return;
         }
         
+        // If a constructor has been passed (A functino wrapped by capture.view)
+        view = (typeof view === "function") ? view() : view;
+        
         validate(view);
         
         var optionalArgs = (arguments.length > 1) ? slice.call(arguments, 1) : undefined;
@@ -138,16 +141,20 @@
 
     
     /**
-     * Any function or object this wraps it immediately instantiates and sets inheritance to
-     * the view base class.
+     * This wraps function/object until called by capture. 
+     * It instantiates function/object and sets inheritance to view base class.
+     *
      * @param {Object/Function} View    Function/Object to instantiate as a capture view
+     * @returns {function} function to be run by capture
      */
-    $.fn.capture.view = function (View) {        
-        // If a constructor has been passed
-        var view = (typeof View === "function") ? new View() : View;
+    $.fn.capture.view = function (View) { 
+        return function () {       
+            // If a constructor has been passed
+            var view = (typeof View === "function") ? new View() : View;
                 
-        // Deep copy view into instance of ViewBaseClass
-        return $.extend(true, new ViewBaseClass(), view); 
+            // Deep copy view into instance of ViewBaseClass
+            return $.extend(true, new ViewBaseClass(), view);
+        };
     };
     
     

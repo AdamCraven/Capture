@@ -107,4 +107,3 @@ You must instantiate a new View Controller for each. If you do not, the 'this.el
 
   * Object-oriented style function call	$.capture('el', vc);
   * Unbinding
-  * Maybe?? Force the capture interface by wrapping the object with; $.capture.viewController(//Object here)

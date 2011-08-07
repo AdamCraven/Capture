@@ -94,7 +94,6 @@
      *  @returns {object} New instance of an initalised view controller
      */
     function connectView(element, view, optionalArgs) {
-
         view.element = element;
 
         if (view.init && view.hasOwnProperty('init')) {
@@ -105,6 +104,23 @@
 
         return view;
     }
+
+    /**
+     *  Capture loosely attaches a view to an element via event delegates.
+     *  @param  {object}  view  The View to be initialised from on the element
+     *  @public
+     */
+    $.fn.capture = function (view) {
+        if (this.length === 0 || !this.each) {
+            return;
+        }
+        
+        validate(view);
+        
+        var optionalArgs = (arguments.length > 1) ? slice.call(arguments, 1) : undefined;
+
+        return connectView(this.eq(0), view, optionalArgs);
+    };
     
     /**
      * View Controller base constructor.
@@ -120,44 +136,18 @@
         }
     };
 
-    /**
-     *  Capture loosely attaches a view to an element via event delegates.
-     *  @param  {object}  view  The View to be initialised from on the element
-     *  @public
-     */
-    $.fn.capture = function (view) {
-        if (this.length === 0 || !this.each) {
-            return;
-        }
-
-        var optionalArgs = (arguments.length > 1) ? slice.call(arguments, 1) : undefined;
-
-        validate(view);
-
-        return connectView(this.eq(0), view, optionalArgs);
-    };
-
     
     /**
-     * Any function or object this wraps it immediately instantiates and sets inheritance from
-     * view base class.
+     * Any function or object this wraps it immediately instantiates and sets inheritance to
+     * the view base class.
+     * @param {Object/Function} View    Function/Object to instantiate as a capture view
      */
-    $.fn.capture.view = function (View) {
-        var view;
-        var viewBase;
-        
-        // If we've been passed a constructor
-        if (typeof View === "function") {
-            view = new View();
-        } else {
-            view = View;
-        }
-        
-        viewBase = new ViewBaseClass();
-        
-        // Deep copy view into newly instantied viewBase
-        return $.extend(true, viewBase, view); 
-        
+    $.fn.capture.view = function (View) {        
+        // If a constructor has been passed
+        var view = (typeof View === "function") ? new View() : View;
+                
+        // Deep copy view into instance of ViewBaseClass
+        return $.extend(true, new ViewBaseClass(), view); 
     };
     
     

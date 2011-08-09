@@ -134,8 +134,14 @@
     function ViewBaseClass() {}
     
     ViewBaseClass.prototype = {
+        // Remove function
         remove : function () {
             this.element.remove();
+        },
+        // Remove all event handlers
+        unbind : function () {
+            this.element.unbind();
+            this.element.undelegate();
         }
     };
 

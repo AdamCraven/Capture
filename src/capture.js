@@ -7,23 +7,24 @@
  */
 (function ($) {
     "use strict";
-
-    var nativeBind = Function.prototype.bind;
+    
+    var bind = Function.prototype.bind;
     var slice = Array.prototype.slice;
     var toString = Object.prototype.toString;
+    
     // All properties with prefix of 'on' are treated as event delegates
     var eventMethodPrefix = /^on(.+)/;
 
     /**
      *  Native ECMAScript 5 bind if supported or passes to jQuery proxy.
      *  @param  {function}  fn    Function to bind.
-     *  @param  {object}  context Scope in which the function is bound.
+     *  @param  {object}  scope Scope in which to bind the function.
      */
-    function bind(fn, context) {
-        if (nativeBind && fn.bind === nativeBind) {
-            return nativeBind.apply(fn, slice.call(arguments, 1));
+    function bindScope(fn, scope) {
+        if (bind && fn.bind === bind) {
+            return bind.apply(fn, slice.call(arguments, 1));
         }
-        return $.proxy(fn, context);
+        return $.proxy(fn, scope);
     }
 
     /**
@@ -59,10 +60,10 @@
                         if (listenerElement.is(selector) || handlerFn === eventHolder.element) {
                             // Attach event to current element
                             // RADAR: What about selector changes on element?
-                            listenerElement.bind(eventType, bind(handlerFn, view));
+                            listenerElement.bind(eventType, bindScope(handlerFn, view));
                         } else {
                             // Bind event delegate to the element. Setting the context to the view
-                            listenerElement.delegate(selector, eventType, bind(handlerFn, view));
+                            listenerElement.delegate(selector, eventType, bindScope(handlerFn, view));
                         }
                     }
                 }
@@ -145,7 +146,6 @@
         }
     };
 
-    
     /**
      * This wraps function/object until called by capture. 
      * It instantiates function/object and sets inheritance to view base class.

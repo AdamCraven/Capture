@@ -147,11 +147,12 @@
     };
 
     /**
-     * This wraps function/object until called by capture. 
-     * It instantiates function/object and sets inheritance to view base class.
+     * This wraps the view until called by capture. 
+     * It instantiates the view controller and sets inheritance to view base class.
      *
-     * @param {Object/Function} View    Function/Object to instantiate as a capture view
-     * @returns {function} function to be run by capture
+     * @param {Object/Function} View    To be instantiated as a capture view
+     *
+     * @returns {function} The view to be initalised by capture
      */
     $.fn.capture.view = function (View) { 
         return function () {       

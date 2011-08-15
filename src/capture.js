@@ -27,6 +27,10 @@
         return $.proxy(fn, scope);
     }
     
+    /**
+     *  logs errors to console
+     *  @param {string} error The error message to log
+     */
     function logError(error) {
         if (console && console.error) {
             console.error(error);
@@ -35,6 +39,9 @@
         }
     }
 
+    /**
+     *  Validates the view when captured, checking for basic errors
+     */
     function validate(view) {
         if (!view) {
             return logError('NO_VIEWCONTROLLER');

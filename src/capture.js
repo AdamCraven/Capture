@@ -26,6 +26,25 @@
         }
         return $.proxy(fn, scope);
     }
+    
+    function logError(error) {
+        if (console && console.error) {
+            console.error(error);
+        } else {
+            throw new Error(error);
+        }
+    }
+
+    function validate(view) {
+        if (!view) {
+            return logError('NO_VIEWCONTROLLER');
+            // TODO: Describe element it was attached to
+        }
+
+        if (toString.call(view) !== '[object Object]') {
+            return logError('VIEWCONTROLLER_MUST_BE_OBJECT');
+        }
+    }
 
     /**
      *  Binds methods that have the valid prefix 'on', to the element
@@ -68,25 +87,6 @@
                     }
                 }
             }
-        }
-    }
-
-    function logError(error) {
-        if (console && console.error) {
-            console.error(error);
-        } else {
-            throw new Error(error);
-        }
-    }
-
-    function validate(view) {
-        if (!view) {
-            return logError('NO_VIEWCONTROLLER');
-            // TODO: Describe element it was attached to
-        }
-
-        if (toString.call(view) !== '[object Object]') {
-            return logError('VIEWCONTROLLER_MUST_BE_OBJECT');
         }
     }
 

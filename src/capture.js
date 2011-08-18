@@ -3,6 +3,7 @@
 /*! 
  *  Capture.js
  *  Copyright 2011 Adam Craven
+ *  Freely distributable under the MIT License.
  *  https://github.com/AdmCrvn/Capture
  */
 (function ($) {

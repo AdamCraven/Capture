@@ -109,7 +109,7 @@
             if (optionalArgs) {
                 view.init.apply(view, optionalArgs);
             } else {
-                view.init.apply(view);
+                view.init.call(view);
             }
         }
 

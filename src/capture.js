@@ -106,7 +106,11 @@
         view.element = element;
 
         if (view.init && view.hasOwnProperty('init')) {
-            view.init.apply(view, optionalArgs);
+            if (optionalArgs) {
+                view.init.apply(view, optionalArgs);
+            } else {
+                view.init.apply(view);
+            }
         }
 
         bindEventDelegates(view);

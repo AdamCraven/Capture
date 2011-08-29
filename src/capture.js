@@ -1,7 +1,8 @@
 /*jslint evil: false, bitwise:false, strict: true, undef: true, white:true, onevar:false, browser:true, plusplus:false */
 /*global jQuery, console:true */
-/*! 
- *  Capture.js
+/**
+ *  Capture.js 
+ *  v0.9.2
  *  Copyright 2011 Adam Craven
  *  Freely distributable under the MIT License.
  *  https://github.com/AdmCrvn/Capture

@@ -45,12 +45,11 @@
      */
     function validate(view) {
         if (!view) {
-            return logError('NO_VIEWCONTROLLER');
-            // TODO: Describe element it was attached to
+            return logError('Capture.js; No view passed. You must attach a view object or constructor. e.g. $("el").capture(view)');
         }
 
         if (toString.call(view) !== '[object Object]') {
-            return logError('VIEWCONTROLLER_MUST_BE_OBJECT');
+            return logError('Capture.js; Invalid view type. The view must be an object or a constructor.');
         }
     }
 

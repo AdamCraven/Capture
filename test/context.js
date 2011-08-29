@@ -20,7 +20,9 @@
             
             var viewController = { 
                init : function init() {
-                   equal(init, this.init, 'context of this, is this view controller');
+                   // IE doesn't recognise named functions reference and contexual function ref as the same in
+                   // in this instance. We must convert toString() to test equality
+                   equal(init.toString(), this.init.toString(), 'context of this, is this view controller');
                    this.test();
                },
                test : function() {

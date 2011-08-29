@@ -86,7 +86,6 @@
                         // Or using special 'element' property
                         if (listenerElement.is(selector) || handlerFn === eventHolder.element) {
                             // Attach event to current element
-                            // RADAR: What about selector changes on element?
                             listenerElement.bind(eventType, bindScope(handlerFn, view));
                         } else {
                             // Bind event delegate to the element. Setting the context to the view

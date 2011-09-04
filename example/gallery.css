@@ -1,0 +1,15 @@
+#gallery {
+	width: 500px;
+	display:none;
+}
+#gallery .pictures img {
+	margin: 5px;
+	border : 3px solid black;
+}
+#gallery .pictures img.hover {
+	border: 3px solid red;
+}
+#gallery .preview img {
+	width: 150px;
+	height: 150px;
+}

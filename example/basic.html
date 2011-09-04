@@ -5,30 +5,27 @@
 	<title>Basic capturing example</title>
 	<script src="../lib/jquery.js"></script>
 	<script src="../src/capture.js"></script>
-	<style>
-		img {
-			margin: 5px;
-			border : 3px solid black;
-		}
-		img.hover {
-			border: 3px solid red;
-		}
-	</style>
+	<link rel="stylesheet" href="./gallery.css">
 </head>
 <body>
 	<div id="gallery">
-		<img src="images/blumen.jpeg">
-		<img src="images/crookedspire.jpeg">
-		<img src="images/landschaft.jpeg">
-		<img src="images/our-sh.gif">
-		<img src="images/servers.jpeg">
+		<div class="pictures">
+			<img src="images/blumen.jpeg">
+			<img src="images/crookedspire.jpeg">
+			<img src="images/landschaft.jpeg">
+			<img src="images/our-sh.gif">
+			<img src="images/servers.jpeg">
+		</div>
 	</div>
 	<p>Hover over images. View source for usage</p>
 	
 	<script>
 		var view = {
+			// Called first
 			init : function () {
-				// Called first
+				// this.element property is a reference to the element captured.
+				// In this case, #gallery
+				this.element.show();
 			},
 			onmouseover : {
 				'img' : function (e) {

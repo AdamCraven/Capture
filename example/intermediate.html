@@ -5,23 +5,7 @@
 	<title>Example showing further usage of capture</title>
 	<script src="../lib/jquery.js"></script>
 	<script src="../src/capture.js"></script>
-	<style>
-		#gallery {
-			width: 500px;
-			display:none;
-		}
-		#gallery .pictures img {
-			margin: 5px;
-			border : 3px solid black;
-		}
-		#gallery .pictures img.hover {
-			border: 3px solid red;
-		}
-		#gallery .preview img {
-			width: 150px;
-			height: 150px;
-		}
-	</style>
+	<link rel="stylesheet" href="./gallery.css">
 </head>
 <body>
 	<div id="gallery">
@@ -43,8 +27,6 @@
 		 */
 		var galleryView = {
 			init : function () {
-				// this.element property is a reference to the element captured.
-				// In this case, #gallery
 				this.element.show();
 			},
 			

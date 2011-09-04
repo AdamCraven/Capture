@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Example showing further usage of capture</title>
+	<script src="../lib/jquery.js"></script>
+	<script src="../src/capture.js"></script>
+	<style>
+		#gallery {
+			width: 500px;
+			display:none;
+		}
+		#gallery .pictures img {
+			margin: 5px;
+			border : 3px solid black;
+		}
+		#gallery .pictures img.hover {
+			border: 3px solid red;
+		}
+		#gallery .preview img {
+			width: 150px;
+			height: 150px;
+		}
+	</style>
+</head>
+<body>
+	<div id="gallery">
+		<div class="pictures">
+			<img src="images/blumen.jpeg">
+			<img src="images/crookedspire.jpeg">
+			<img src="images/landschaft.jpeg">
+			<img src="images/our-sh.gif">
+			<img src="images/servers.jpeg">
+		</div>
+		<div class="preview"></div>
+	</div>
+	<p>Hover over images. View source for usage</p>
+	
+	<script>
+	
+		/**
+		 * The galleryView object is attached to the gallery and shows larger preview images
+		 */
+		var galleryView = {
+			init : function () {
+				// this.element property is a reference to the element captured.
+				// In this case, #gallery
+				this.element.show();
+			},
+			
+			openPreview : function(picture) {
+				var newPicture = $(picture).clone();
+				var preview = this.element.find('.preview');
+				
+				preview.empty();
+				preview.append(newPicture);
+				preview.show();
+			},
+			
+			closePreview : function() {
+				this.element.find('.preview').hide();
+			},
+			
+			// Events
+			onmouseover : {
+				'.pictures img' : function (e) {
+					var img = $(e.target);
+					
+					this.openPreview(img);
+					img.addClass('hover');
+				}
+			},
+			
+			onmouseleave : {
+				// The special property 'element' attaches events to the captured element
+				// In this case and event handler is bound to #gallery
+				element : function(e) {
+					this.closePreview();
+				}
+			},
+			
+			onmouseout : {
+				'.pictures img' : function(e) {
+					$(e.target).removeClass('hover');
+				}
+			}
+		};
+	
+		$('#gallery').capture(galleryView);
+	</script>
+</body>
+</html>

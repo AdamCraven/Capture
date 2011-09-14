@@ -73,7 +73,7 @@ The interface isn't forced in capture. To create an object that works with captu
 	
 You can also wrap the object in a capture view. This instantiates a new object every time it is called and also inherits capture view functions from the view class.
 
-	$.fn.view({
+	$.fn.capture.view({
 		init : function(options, moreOptions) {
 			// The init function is exectued on capture, before event delegates have been assigned
 		},

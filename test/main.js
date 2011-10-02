@@ -64,6 +64,23 @@
 			expect(2);
 		});
 		
+		
+		test("Object oriented style calling works", function() {
+			
+			var options = {};
+			var anotherValue = 'bar';
+			var viewController = { 
+				init: function(firstArg, secondArg){
+					equal(options, firstArg, 'Options object is passed to init');
+					equal(anotherValue, secondArg, 'anotherValue is pass to init');
+				} 
+			};
+			 
+			$.capture('#testElement', viewController, options, anotherValue); 
+			
+			expect(2);
+		});
+		
 	
 	
 }());

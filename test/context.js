@@ -40,6 +40,30 @@
 
         });
         
+        test("Context is still correct when using object-oriented style", function() {
+            
+            var viewController = { 
+               init : function init() {
+                   // IE doesn't recognise named functions reference and contexual function ref as the same in
+                   // in this instance. We must convert toString() to test equality
+                   equal(init.toString(), this.init.toString(), 'context of this, is this view controller');
+                   this.test();
+               },
+               test : function() {
+                   ok(true, 'test function can be accessed from init function, using this');
+                   this.test2();
+               },
+               test2 : function() {
+                   ok(true, 'test2 function can be accessed from test function, using this');
+               }
+            };
+            
+            $.capture('#testElement', viewController);
+            expect(3);
+            
+
+        });
+        
         test("Context inside viewController events", function() {
             
             var viewController = { 

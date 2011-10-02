@@ -23,8 +23,7 @@
 			var viewController = { init:function(){} };
 			var boundViewController = $('#testElement').capture(viewController);
 			
-			equal(boundViewController.element[0], $('#testElement')[0], 'captured element is same');
-			strictEqual(viewController, boundViewController, 'The boundViewController is not a new instance of viewController, and not the same');
+			strictEqual(viewController, boundViewController, 'The boundViewController is not a new instance of viewController');
 		});
 		
 		test("Methods in the prototype are not called by capture", function() {

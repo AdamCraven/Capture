@@ -54,10 +54,10 @@ With the added benefit of being able to instantiate multiple new View Controller
 Reference to the captured element.
 
 *view.remove()*:
-Removes element
+Removes element.
 
 *view.removeEvents()*:
-Unbinds any listeners attached
+Unbinds any listeners attached.
 
 *view.reattachEvents()*:
 Reattaches all event listeners. Unbinds listeners automatically.

@@ -113,8 +113,3 @@ You must instantiate a new View Controller for each. If you do not, the 'this.el
 		this.capture(new PaginationViewController)
 	};
 	
-
-#Todo;
-
-  * Object-oriented style function call	$.capture('el', vc);
-  * Unbinding

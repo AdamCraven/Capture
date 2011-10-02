@@ -24,8 +24,10 @@
 	
 		/**
 		 * The galleryView object is attached to the gallery and shows larger preview images
+		 * 
+		 * Gallery view is an instance of capture.view and thus inherits its methods.
 		 */
-		var galleryView = {
+		var galleryView = $.capture.view({
 			init : function () {
 				this.element.show();
 			},
@@ -66,7 +68,7 @@
 					$(e.target).removeClass('hover');
 				}
 			}
-		};
+		});
 	
 		$('#gallery').capture(galleryView);
 	</script>

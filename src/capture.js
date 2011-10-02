@@ -189,7 +189,6 @@
      *  $.capture('#gallery', view)
      */
     $.capture = function (element, view) {
-        // Push view and any additional arguments into an array 
         var args = [view].concat(slice.call(arguments, 2));
         
         return $.fn.capture.apply($(element), args);

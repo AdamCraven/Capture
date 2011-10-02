@@ -174,23 +174,28 @@
             return $.extend(true, new ViewBaseClass(), view);
         };
     };
-    
-    if (typeof $.capture === "undefined") {
-        // Create capture in jQuery namespace
         
-        /**
-         * Creates object-oriented style calls
-         * e.g. $.capture('#gallery', view)
-         */
-        $.capture = function (element, view) {
-            // Push view and any additional arguments into an array 
-            var args = [view].concat(slice.call(arguments, 2));
-            
-            return $.fn.capture.apply($(element), args);
-        };
-            
-        $.capture.view = $.fn.capture.view;
-    }
+    /**
+     * Allows for object-oriented style calls.
+     *
+     * @param {String}          element Element string to be parsed
+     * @param {Object/Function} View    To be instantiated as a capture view
+     *
+     * @example
+     *  $.capture('#gallery', view)
+     */
+    $.capture = function (element, view) {
+        // Push view and any additional arguments into an array 
+        var args = [view].concat(slice.call(arguments, 2));
+        
+        return $.fn.capture.apply($(element), args);
+    };
+    
+    /**
+     * Capture view on top level
+     */
+    $.capture.view = $.fn.capture.view;
+    
     
     
 })(jQuery);

@@ -150,14 +150,19 @@
     function ViewBaseClass() {}
     
     ViewBaseClass.prototype = {
-        // Remove function
+        // Remove element
         remove : function () {
             this.element.remove();
         },
         // Remove all event handlers
-        unbind : function () {
+        removeEvents : function () {
             this.element.unbind();
             this.element.undelegate();
+        },
+        // Reattach all event delegates
+        reattachEvents : function () {
+            this.removeEvents();
+            bindEventDelegates(this);
         }
     };
 

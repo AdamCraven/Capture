@@ -48,6 +48,21 @@ With the added benefit of being able to instantiate multiple new View Controller
 
 ### Documentation
 
+##### Properties and methods of a view
+
+**view.element**:
+Reference to the element captured.
+
+**view.remove()**:
+Removes element
+
+**view.removeEvents()**:
+Unbinds any listeners attached
+
+**view.reattachEvents()**:
+Reattaches all event listeners. Unbinds listeners automatically.
+
+
 #### The capture interface
 
 The interface isn't forced in capture. To create an object that works with capture you can define an 'init' function and multiple 'onEVENT\_TYPE' objects, where EVENT\_TYPE can be any valid jQuery event (e.g. mouseover) or a custom event. Example;

@@ -48,18 +48,18 @@ With the added benefit of being able to instantiate multiple new View Controller
 
 ### Documentation
 
-##### Properties and methods of a view
+#### Properties and methods of a view
 
-**view.element**:
-Reference to the element captured.
+*view.element*:
+Reference to the captured element.
 
-**view.remove()**:
+*view.remove()*:
 Removes element
 
-**view.removeEvents()**:
+*view.removeEvents()*:
 Unbinds any listeners attached
 
-**view.reattachEvents()**:
+*view.reattachEvents()*:
 Reattaches all event listeners. Unbinds listeners automatically.
 
 

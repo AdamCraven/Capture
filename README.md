@@ -113,3 +113,12 @@ You must instantiate a new View Controller for each. If you do not, the 'this.el
 		this.capture(new PaginationViewController)
 	};
 	
+However, this is automatically handled if the ViewController is an instance of capture.view.
+
+	paginationViewController = $.capture.view{{
+		// ...
+	}};
+
+	$('.pagination').each(function() {
+		this.capture(paginationViewController)
+	};

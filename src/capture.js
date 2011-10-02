@@ -175,5 +175,11 @@
         };
     };
     
+    if (typeof $.capture === "undefined") {
+        // Create capture in jQuery namespace
+        $.capture = $.fn.capture;
+        $.capture.view = $.fn.capture.view;
+    }
+    
     
 })(jQuery);

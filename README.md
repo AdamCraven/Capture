@@ -102,15 +102,15 @@ You can also wrap the object in a capture view. This instantiates a new object e
 
 #### Attaching the same View Controllers to multiple elements
 
-This is generally undesirable behaviour. View Controllers are an overall controller. For example, they shouldn't be used for individual .pictures in a #gallery. Instead, it should capture the #gallery itself. It is much faster and less heavy on memory.
+This is generally undesirable behaviour. View Controllers are an overall controller. They shouldn't be used for individual .pictures in a #gallery. Instead, it should capture the #gallery itself because it is much faster and less heavy on memory.
 
-To prevent this, only one element can be captured at a time to prevent the same object being shared across two elements.
+To prevent this undesired behaviour one element is captured at a time.
 
-When doing this;
+Which means when doing this;
 
 	$('.pictures').capture(pictureViewController);
 	
-It is really;
+It is effectively this;
 
 	$('.pictures').eq(0).capture(pictureViewController);
 

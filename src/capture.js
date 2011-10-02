@@ -116,6 +116,10 @@
 
         return view;
     }
+    
+    if (typeof $.capture !== "undefined") {
+        return logError('$.capture is already defined in jQuery namespace');
+    }
 
     /**
      *  Capture loosely attaches a view to an element via event delegates.

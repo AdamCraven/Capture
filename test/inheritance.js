@@ -119,7 +119,7 @@
         });
         
         test("New instance everytime accessed", function() {                
-            var newPic = $.fn.capture.view({
+            var newPic = $.capture.view({
                 init: function() {},
                 onclick : {
                     "#testElement" : function() {}

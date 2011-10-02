@@ -131,7 +131,7 @@
             return;
         }
         
-        // If a constructor has been passed (A functino wrapped by capture.view)
+        // If a constructor has been passed (A function wrapped by capture.view)
         view = (typeof view === "function") ? view() : view;
         
         validate(view);

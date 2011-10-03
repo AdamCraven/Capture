@@ -15,14 +15,14 @@
         
         test("Wrapping an already instantiated object with ViewController initialises correctly", function() {
             var newObj = {init: function() {}};
-            var viewController = $.fn.capture.view(newObj);
+            var viewController = Capture.view(newObj);
             
             notEqual(newObj, viewController, 'A new instance of view controller has been created');
         });
         
         test('"removeEventListeners" method is inherited from baseClass', function() {
             var picture = {};
-            var newPic = $.fn.capture.view(picture);
+            var newPic = Capture.view(picture);
             newPic = $('#testElement').capture(newPic);
             
             
@@ -32,7 +32,7 @@
         
         test('"removeEventListeners" method overwritten from baseClass', function() {
             var picture = { removeEventListeners : function () {} };
-            var newPic = $.fn.capture.view(picture);
+            var newPic = Capture.view(picture);
             newPic = $('#testElement').capture(newPic);
             
             
@@ -59,7 +59,7 @@
             };
                 
             
-            var newPic = $.fn.capture.view(picture);
+            var newPic = Capture.view(picture);
             newPic = $('#testElement').capture(newPic);
             
             equal(newPic.init, picture.init, 'Method same');
@@ -84,7 +84,7 @@
                 
             }
                 
-            var newPic = $.fn.capture.view(Picture);
+            var newPic = Capture.view(Picture);
             newPic = $('#testElement').capture(newPic);
             
             ok(typeof newPic.onclick === "object", 'We can\'t examine methods in Picture constructor, so just check a method has initalised');
@@ -107,7 +107,7 @@
                 anArray : [1,2,3]               
             };
             
-            var newPic = $.fn.capture.view(Picture);
+            var newPic = Capture.view(Picture);
             newPic = $('#testElement').capture(newPic);
             
             

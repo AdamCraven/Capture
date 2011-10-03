@@ -144,7 +144,7 @@
     
     /**
      * View Controller base constructor.
-     * When an object is wrapped with $.fn.capture.view, it inherits methods directly
+     * When an object is wrapped with Capture.view, it inherits methods directly
      * from this constructor
      * @constructor
      */
@@ -163,23 +163,7 @@
         }
     };
 
-    /**
-     * This wraps the view until called by capture. 
-     * It instantiates the view controller and sets inheritance to view base class.
-     *
-     * @param {Object/Function} View    To be instantiated as a capture view
-     *
-     * @returns {function} The view to be initalised by capture
-     */
-    $.fn.capture.view = function (View) { 
-        return function () {       
-            // If a constructor has been passed
-            var view = (typeof View === "function") ? new View() : View;
-                
-            // Deep copy view into instance of ViewBaseClass
-            return $.extend(true, new ViewBaseClass(), view);
-        };
-    };
+
         
     /**
      * Allows for object-oriented style calls.
@@ -197,9 +181,22 @@
     };
     
     /**
-     * Capture view on top level
+     * This wraps the view until called by capture. 
+     * It instantiates the view controller and sets inheritance to view base class.
+     *
+     * @param {Object/Function} View    To be instantiated as a capture view
+     *
+     * @returns {function} The view to be initalised by capture
      */
-    Capture.view = $.fn.capture.view;
+    Capture.view = function (View) { 
+        return function () {       
+            // If a constructor has been passed
+            var view = (typeof View === "function") ? new View() : View;
+
+            // Deep copy view into instance of ViewBaseClass
+            return $.extend(true, new ViewBaseClass(), view);
+        };
+    };
     
     
     

@@ -38,12 +38,6 @@ Reference to the captured element.
 
 	this.element;
 
-
-##### remove - *view.remove()*:
-Removes element. Shortcut for this.element.remove();
-
-	this.remove();
-
 ##### removeEventListeners - *view.removeEventListeners()*:
 Unbinds any listeners attached.
 

@@ -1,6 +1,8 @@
 
 #Capture.js
-##View Controllers for jQuery
+##Views for JavaScript
+
+Capture.js is a spiritual successor to [lowpro](https://github.com/danwrong/low-pro-for-jquery). 
 
 Attach an object to an element unobtrusively using Capture. 
 
@@ -22,13 +24,12 @@ And this JavaScript
 		}
 	});
 
-Then capture with jQuery
+Capture them
 	
 	$('#picture').capture(pictureView);
-	//or using OO style;
-	Capture('#picture', pictureView);
+
 	
-Will link an element with it's view and capture all clicks on the that happen on the '.delete' element.  
+It links an element with it's view and capture all clicks on the that happen on the '.delete' element.
 
 *Requires*: jQuery 1.6+  
 *Browser support*: IE6+
@@ -67,9 +68,9 @@ The element property exists inside event listener properties. It captures all ev
 
 #### The capture interface
 
-To create an object that works with capture you can define an 'init' function and multiple 'onEVENT\_TYPE' objects, where EVENT\_TYPE can be any valid jQuery event (e.g. mouseover) or a custom event. Example;
+Wrapping an object in a Capture view instantiates an new object on each capture. You should define an 'init' function and can define multiple 'onEVENT\_TYPE' objects, where EVENT\_TYPE can be any valid jQuery event (e.g. mouseover) or a custom event. Example;
 
-	{
+	Capture.view({
 		init : function(options, moreOptions) {
 			// The init function is exectued on capture, before event delegates have been assigned
 		},
@@ -86,65 +87,39 @@ To create an object that works with capture you can define an 'init' function an
 				// Will capture any 'mycustomevent' events on this.element.find('.selector');
 			}
 		}
-	};
-	
-You can also wrap the object in a capture view. This instantiates a new object every time it is called and also inherits capture view functions from the view class.
-
-	Capture.view({
-		init : function(options, moreOptions) {
-			// The init function is exectued on capture, before event delegates have been assigned
-		},
-		onclick : {
-			element : function(e) {
-				// Will capture any 'click' events on this.element
-			}
-		}
 	});
-
 
 #### Attaching the same View Controllers to multiple elements
 
-This is generally undesirable behaviour. View Controllers are an overall controller. They shouldn't be used for individual .pictures in a #gallery. Instead, it should capture the #gallery itself because it is much faster and less heavy on memory.
-
+This is generally undesirable behaviour. View Controllers are an overall controller. For example, they shouldn't be used for individual .pictures in a #gallery. Instead, it should capture the #gallery itself.
 To prevent this undesired behaviour one element is captured at a time.
 
 Which means when doing this;
 
 	$('.pictures').capture(pictureViewController);
 	
-It is effectively this;
+Is effectively this;
 
 	$('.pictures').eq(0).capture(pictureViewController);
 
 In some valid instances, you might want to attach the same View Controller to multiple elements. For example, two pagination elements on a page. One at the top and one at the bottom.
 
-You must instantiate a new View Controller for each. If you do not, the 'this.element' will always point to the last one bound in the View Controller and changes to the variables will affect them both.
 
-	// Do not do this
-	$('.pagination').each(function() {
-		this.capture(paginationViewController)
-	};
-	
-	// This is correct
-	$('.pagination').each(function() {
-		this.capture(new PaginationViewController)
-	};
-	
-However, this is automatically handled if the ViewController is an instance of capture.view.
+Instantiation is automatically handled if the object is wrapped with Capture.view.
 
-	paginationViewController = $.capture.view{{
+	paginationView = Capture.view{{
 		// ...
 	}};
 
-	$('.pagination').each(function() {
-		this.capture(paginationViewController)
+	$('.pagination').each(function () {
+		this.capture(paginationView)
 	};
 
 #### Other features
 
 As it's just a JavaScript object, this works too;
 
-	function PictureViewController = function(){
+	function PictureView = function(){
 		this.init = function() {};
 		this.onclick = {
 			'.delete' : function() {
@@ -154,7 +129,7 @@ As it's just a JavaScript object, this works too;
 		};
 	}
 	
-	var pictureViewController = new PictureViewController();
+	var pictureView = new PictureView();
 	
 	$('#picture').capture(pictureViewController);
 	

@@ -38,34 +38,27 @@ It links an element with it's view and capture all clicks on the that happen on 
 
 ### API
 
-#### Properties and methods of a view
-
-##### Capture
-*Capture(selector, View)*) @returns new View
+#### Capture(selector, view) *or* $(selector).capture(view)
 
 Capture an element and view.
 	
 	var view = Capture('#element', view)
 
-##### $(selector).capture(view)
+Functional version of the one above.
 
-Functional version of the one above
+#### Capture.view(viewObject)
+Instantiates the object as a capture view.
 
-##### Capture.view @returns function
-Capture.view(ViewObject);
-
-	Capture.view({})
-
-##### view.element
+#### view.element
 Reference to the captured element.
 
-##### view.removeEventListeners
-Unbinds any listeners attached to the element
+#### view.removeEventListeners
+Unbinds any listeners attached to the element.
 
-##### view.reattachEventListeners
+#### view.reattachEventListeners
 Reattaches all event listeners. Unbinds existing listeners automatically.
 
-##### view.on[EVENT_TYPE].element
+#### view.on[EVENT_TYPE].element
 The element property exists inside event listener properties. It captures all events of that type on view.element.
 
 	onclick : {
@@ -76,7 +69,7 @@ The element property exists inside event listener properties. It captures all ev
 
 
 
-#### The capture interface
+### The capture interface
 
 Wrapping an object in a Capture view instantiates an new object on each capture. You should define an 'init' function and can define multiple 'onEVENT\_TYPE' objects, where EVENT\_TYPE can be any valid jQuery event (e.g. mouseover) or a custom event. Example;
 
@@ -99,7 +92,7 @@ Wrapping an object in a Capture view instantiates an new object on each capture.
 		}
 	});
 
-#### Attaching the same View Controllers to multiple elements
+### Attaching the same View Controllers to multiple elements
 
 This is generally undesirable behaviour. View Controllers are an overall controller. For example, they shouldn't be used for individual .pictures in a #gallery. Instead, it should capture the #gallery itself.
 To prevent this undesired behaviour one element is captured at a time.
@@ -125,7 +118,7 @@ Instantiation is automatically handled if the object is wrapped with Capture.vie
 		this.capture(paginationView)
 	};
 
-#### Other features
+### Other features
 
 As it's just a JavaScript object, this works too;
 

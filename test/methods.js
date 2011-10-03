@@ -18,7 +18,6 @@
             var newPic = $('#testElement').capture(picture);
 
 
-            ok(newPic.remove, 'remove has been inherited from base-class');
             ok(newPic.removeEventListeners, 'removeEventListeners has been inherited from base-class');
             ok(newPic.reattachEventListeners, 'reattachEventListeners has been inherited from base-class');
 
@@ -32,18 +31,6 @@
 			equal(boundViewController.element[0], $('#testElement')[0], 'captured element is same');
 		});
 
-        
-        test('"remove" method removes element', function() {
-            var picture = $.capture.view({});
-            var newPic = $('#testElement').capture(picture);
-
-            equal($('#testElement').length, 1, '#testElement exists');
-            
-            newPic.remove();
-            
-            equal($('#testElement').length, 0, '#testElement removed');
-
-        });
         
         test('"removeEventListeners" method unbinds all events attached to the view', function() {
             var clickCount = 0;

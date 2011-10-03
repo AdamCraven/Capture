@@ -151,10 +151,6 @@
     function ViewBaseClass() {}
     
     ViewBaseClass.prototype = {
-        // Remove element
-        remove : function () {
-            this.element.remove();
-        },
         // Remove all event handlers
         removeEventListeners : function () {
             this.element.unbind();

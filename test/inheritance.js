@@ -20,27 +20,27 @@
             notEqual(newObj, viewController, 'A new instance of view controller has been created');
         });
         
-        test('Remove method is inherited from baseClass', function() {
+        test('"removeEventListeners" method is inherited from baseClass', function() {
             var picture = {};
             var newPic = $.fn.capture.view(picture);
             newPic = $('#testElement').capture(newPic);
             
             
-            ok(newPic.remove, 'remove has been inherited from base-class');
+            ok(newPic.removeEventListeners, 'remove has been inherited from base-class');
             
         });
         
-        test('Remove method overwritten from baseClass', function() {
-            var picture = { remove : function () {} };
+        test('"removeEventListeners" method overwritten from baseClass', function() {
+            var picture = { removeEventListeners : function () {} };
             var newPic = $.fn.capture.view(picture);
             newPic = $('#testElement').capture(newPic);
             
             
-            equal(newPic.remove, picture.remove, 'remove not inherited from base class');
+            equal(newPic.removeEventListeners, picture.removeEventListeners, 'removeEventListeners not inherited from base class');
             
             // In browsers that support ECMAScript 5 prototype lookup
             if(Object.getPrototypeOf) {
-                ok(Object.getPrototypeOf(newPic).remove, 'And still exists in prototype');
+                ok(Object.getPrototypeOf(newPic).removeEventListeners, 'But still exists in prototype');
             }
         });
         

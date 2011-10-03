@@ -2,7 +2,7 @@
 #Capture.js
 ##View Controllers for jQuery
 
-Attach an object to an element seamlessly using Capture.
+Attach an object to an element unobtrusively using Capture. 
 
 With this HTML
 	
@@ -25,42 +25,44 @@ And this JavaScript
 	
 	$('#picture').capture(pictureViewController);
 	
-Will link an element with it's view controller.
+Will link an element with it's view controller and capture all clicks on the that happen on the '.delete' selector
 
-As it's just a JavaScript object, this works too;
-
-	function PictureViewController = function(){
-		this.init = function() {};
-		this.onclick = {
-			'.delete' : function() {
-				// Will remove #picture
-				this.element.remove();
-			}	
-		};
-	}
-	
-	var pictureViewController = new PictureViewController();
-	
-	$('#picture').capture(pictureViewController);
-	
-With the added benefit of being able to instantiate multiple new View Controllers and use prototypal inheritance.
 
 
 ### Documentation
 
 #### Properties and methods of a view
 
-*view.element*:
+##### element	- *view.element*:
 Reference to the captured element.
 
-*view.remove()*:
-Removes element.
+	this.element;
 
-*view.removeEventListeners()*:
+
+##### remove - *view.remove()*:
+Removes element. Shortcut for this.element.remove();
+
+	this.remove();
+
+##### removeEventListeners - *view.removeEventListeners()*:
 Unbinds any listeners attached.
 
-*view.reattachEventListeners()*:
+	this.removeEventListeners();
+
+##### reattachEventListeners - *view.reattachEventListeners()*:
 Reattaches all event listeners. Unbinds existing listeners automatically.
+
+	this.reattachEventListeners();
+
+##### element - *view.onEVENT.element*
+The element property exists inside event listener properties. It captures all events of that type on this.element.
+
+	onclick : {
+		element : function (e) {
+			// Captures all clicks on this.element
+		}
+	} 
+
 
 
 #### The capture interface
@@ -137,3 +139,23 @@ However, this is automatically handled if the ViewController is an instance of c
 	$('.pagination').each(function() {
 		this.capture(paginationViewController)
 	};
+
+#### Other features
+
+As it's just a JavaScript object, this works too;
+
+	function PictureViewController = function(){
+		this.init = function() {};
+		this.onclick = {
+			'.delete' : function() {
+				// Will remove #picture
+				this.element.remove();
+			}	
+		};
+	}
+	
+	var pictureViewController = new PictureViewController();
+	
+	$('#picture').capture(pictureViewController);
+	
+With the added benefit of being able to instantiate multiple new View Controllers and use prototypal inheritance.

@@ -14,7 +14,7 @@
     module("Methods and properties", {teardown: teardown, setup: setup });
         
         test('All methods are inherited from base-class', function() {
-            var picture = $.capture.view({});
+            var picture = Capture.view({});
             var newPic = $('#testElement').capture(picture);
 
 
@@ -26,7 +26,7 @@
         
 		test('"this.element" property is the element captured', function() {
 			var viewController = { init:function(){} };
-			var boundViewController = $.capture('#testElement', viewController);
+			var boundViewController = Capture('#testElement', viewController);
 			
 			equal(boundViewController.element[0], $('#testElement')[0], 'captured element is same');
 		});
@@ -34,7 +34,7 @@
         
         test('"removeEventListeners" method unbinds all events attached to the view', function() {
             var clickCount = 0;
-            var picture = $.capture.view({
+            var picture = Capture.view({
                 onclick : {
                     element : function (e) {
                         clickCount++;
@@ -54,7 +54,7 @@
         
         test('"reattachEventListeners" method reattachs all events to the view', function() {
             var clickCount = 0;
-            var picture = $.capture.view({
+            var picture = Capture.view({
                 onclick : {
                     element : function (e) {
                         clickCount++;
@@ -79,7 +79,7 @@
         
         test('"reattachEventListeners" method first removes existing methods before reattaching', function() {
             var clickCount = 0;
-            var picture = $.capture.view({
+            var picture = Capture.view({
                 onclick : {
                     element : function (e) {
                         clickCount++;

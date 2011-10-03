@@ -58,7 +58,7 @@
                }
             };
             
-            $.capture('#testElement', viewController);
+            Capture('#testElement', viewController);
             expect(3);
             
 

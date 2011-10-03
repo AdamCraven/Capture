@@ -13,23 +13,29 @@ With this HTML
 	
 And this JavaScript
 	
-	var pictureViewController = {
-		init : function(){},
+	var pictureView = Capture.view({
 		onclick : {
-			'.delete' : function() {
+			'.delete' : function (e) {
 				// Will remove #picture
 				this.element.remove();
 			}
 		}
-	}
+	});
+
+Then capture with jQuery
 	
-	$('#picture').capture(pictureViewController);
+	$('#picture').capture(pictureView);
+	//or using OO style;
+	Capture('#picture', pictureView);
 	
-Will link an element with it's view controller and capture all clicks on the that happen on the '.delete' selector
+Will link an element with it's view and capture all clicks on the that happen on the '.delete' element.  
+
+*Requires*: jQuery 1.6+  
+*Browser support*: IE6+
 
 
 
-### Documentation
+### API
 
 #### Properties and methods of a view
 
@@ -48,7 +54,7 @@ Reattaches all event listeners. Unbinds existing listeners automatically.
 
 	this.reattachEventListeners();
 
-##### element - *view.onEVENT.element*
+##### element - *view.onEVENT_TYPE.element*
 The element property exists inside event listener properties. It captures all events of that type on this.element.
 
 	onclick : {
@@ -61,7 +67,7 @@ The element property exists inside event listener properties. It captures all ev
 
 #### The capture interface
 
-The interface isn't forced in capture. To create an object that works with capture you can define an 'init' function and multiple 'onEVENT\_TYPE' objects, where EVENT\_TYPE can be any valid jQuery event (e.g. mouseover) or a custom event. Example;
+To create an object that works with capture you can define an 'init' function and multiple 'onEVENT\_TYPE' objects, where EVENT\_TYPE can be any valid jQuery event (e.g. mouseover) or a custom event. Example;
 
 	{
 		init : function(options, moreOptions) {
@@ -84,7 +90,7 @@ The interface isn't forced in capture. To create an object that works with captu
 	
 You can also wrap the object in a capture view. This instantiates a new object every time it is called and also inherits capture view functions from the view class.
 
-	$.capture.view({
+	Capture.view({
 		init : function(options, moreOptions) {
 			// The init function is exectued on capture, before event delegates have been assigned
 		},

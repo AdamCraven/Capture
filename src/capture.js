@@ -1,5 +1,5 @@
 /*jslint evil: false, bitwise:false, strict: true, undef: true, white:true, onevar:false, browser:true, plusplus:false */
-/*global jQuery, console:true */
+/*global jQuery, console, Capture:true, window */
 /**
  *  Capture.js 
  *  v0.9.2
@@ -118,8 +118,8 @@
         return view;
     }
     
-    if (typeof $.capture !== "undefined") {
-        return logError('$.capture is already defined in jQuery namespace');
+    if (typeof Capture !== "undefined") {
+        return logError('Capture is already defined');
     }
 
     /**
@@ -188,9 +188,9 @@
      * @param {Object/Function} View    To be instantiated as a capture view
      *
      * @example
-     *  $.capture('#gallery', view)
+     *  Capture('#gallery', view)
      */
-    $.capture = function (element, view) {
+    window.Capture = function (element, view) {
         var args = [view].concat(slice.call(arguments, 2));
         
         return $.fn.capture.apply($(element), args);
@@ -199,7 +199,7 @@
     /**
      * Capture view on top level
      */
-    $.capture.view = $.fn.capture.view;
+    Capture.view = $.fn.capture.view;
     
     
     

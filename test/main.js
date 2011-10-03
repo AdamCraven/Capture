@@ -75,7 +75,7 @@
 				} 
 			};
 			 
-			$.capture('#testElement', viewController, options, anotherValue); 
+			Capture('#testElement', viewController, options, anotherValue); 
 			
 			expect(2);
 		});

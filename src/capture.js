@@ -55,7 +55,8 @@
     }
 
     /**
-     *  Binds methods that have the valid prefix 'on', to the element
+     *  Adds listeners to the view.
+     *  By default all methods that have the valid prefix 'on', their selectors will be bound
      *  
      *  @example view controller method the function will bind event delegates with
      *    onclick : { 
@@ -64,7 +65,7 @@
      *      }   
      *    }
      */
-    function bindEventDelegates(view) {
+    function addEventListeners(view) {
         var eventHolder;
         var eventType;
         var method;
@@ -112,7 +113,7 @@
             }
         }
 
-        bindEventDelegates(view);
+        addEventListeners(view);
 
         return view;
     }
@@ -162,7 +163,7 @@
         // Reattach all event listners
         reattachEventListeners : function () {
             this.removeEventListeners();
-            bindEventDelegates(this);
+            addEventListeners(this);
         }
     };
 

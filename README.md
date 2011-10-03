@@ -40,23 +40,33 @@ It links an element with it's view and capture all clicks on the that happen on 
 
 #### Properties and methods of a view
 
-##### element	- *view.element*:
+##### Capture
+*Capture(selector, View)*) @returns new View
+
+Capture an element and view.
+	
+	var view = Capture('#element', view)
+
+##### $(selector).capture(view)
+
+Functional version of the one above
+
+##### Capture.view @returns function
+Capture.view(ViewObject);
+
+	Capture.view({})
+
+##### view.element
 Reference to the captured element.
 
-	this.element;
+##### view.removeEventListeners
+Unbinds any listeners attached to the element
 
-##### removeEventListeners - *view.removeEventListeners()*:
-Unbinds any listeners attached.
-
-	this.removeEventListeners();
-
-##### reattachEventListeners - *view.reattachEventListeners()*:
+##### view.reattachEventListeners
 Reattaches all event listeners. Unbinds existing listeners automatically.
 
-	this.reattachEventListeners();
-
-##### element - *view.onEVENT_TYPE.element*
-The element property exists inside event listener properties. It captures all events of that type on this.element.
+##### view.on[EVENT_TYPE].element
+The element property exists inside event listener properties. It captures all events of that type on view.element.
 
 	onclick : {
 		element : function (e) {

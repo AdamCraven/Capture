@@ -19,8 +19,8 @@
 
 
             ok(newPic.remove, 'remove has been inherited from base-class');
-            ok(newPic.removeEvents, 'removeEvents has been inherited from base-class');
-            ok(newPic.reattachEvents, 'reattachEvents has been inherited from base-class');
+            ok(newPic.removeEventListeners, 'removeEventListeners has been inherited from base-class');
+            ok(newPic.reattachEventListeners, 'reattachEventListeners has been inherited from base-class');
 
         });
         
@@ -45,7 +45,7 @@
 
         });
         
-        test('"removeEvents" method unbinds all events attached to the view', function() {
+        test('"removeEventListeners" method unbinds all events attached to the view', function() {
             var clickCount = 0;
             var picture = $.capture.view({
                 onclick : {
@@ -60,12 +60,12 @@
             $('#testElement').click();
             equal(1, clickCount, '#testElement has been clicked');
             
-            newPic.removeEvents();
+            newPic.removeEventListeners();
             $('#testElement').click();
             equal(1, clickCount, '#testElement no longer responds to events');
         });
         
-        test('"reattachEvents" method reattachs all events to the view', function() {
+        test('"reattachEventListeners" method reattachs all events to the view', function() {
             var clickCount = 0;
             var picture = $.capture.view({
                 onclick : {
@@ -80,17 +80,17 @@
             $('#testElement').click();
             equal(clickCount, 1, '#testElement has been clicked');
             
-            newPic.removeEvents();
+            newPic.removeEventListeners();
             $('#testElement').click();
             equal(clickCount, 1, '#testElement no longer responds to events');
             
-            newPic.reattachEvents();
+            newPic.reattachEventListeners();
             $('#testElement').click();
             equal(clickCount, 2, '#testElement responds to events again');
             
         });
         
-        test('"reattachEvents" method first removes existing methods before reattaching', function() {
+        test('"reattachEventListeners" method first removes existing methods before reattaching', function() {
             var clickCount = 0;
             var picture = $.capture.view({
                 onclick : {
@@ -103,9 +103,9 @@
             var newPic = $('#testElement').capture(picture);
 
             
-            newPic.reattachEvents();
-            newPic.reattachEvents();
-            newPic.reattachEvents();
+            newPic.reattachEventListeners();
+            newPic.reattachEventListeners();
+            newPic.reattachEventListeners();
             $('#testElement').click();
             equal(clickCount, 1, '#testElement responds to events again');
             

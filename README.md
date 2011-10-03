@@ -56,11 +56,11 @@ Reference to the captured element.
 *view.remove()*:
 Removes element.
 
-*view.removeEvents()*:
+*view.removeEventListeners()*:
 Unbinds any listeners attached.
 
-*view.reattachEvents()*:
-Reattaches all event listeners. Unbinds listeners automatically.
+*view.reattachEventListeners()*:
+Reattaches all event listeners. Unbinds existing listeners automatically.
 
 
 #### The capture interface

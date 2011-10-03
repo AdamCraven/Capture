@@ -155,13 +155,13 @@
             this.element.remove();
         },
         // Remove all event handlers
-        removeEvents : function () {
+        removeEventListeners : function () {
             this.element.unbind();
             this.element.undelegate();
         },
-        // Reattach all event delegates
-        reattachEvents : function () {
-            this.removeEvents();
+        // Reattach all event listners
+        reattachEventListeners : function () {
+            this.removeEventListeners();
             bindEventDelegates(this);
         }
     };

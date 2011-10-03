@@ -28,8 +28,7 @@ Capture them
 	
 	$('#picture').capture(pictureView);
 
-	
-It links an element with it's view and capture all clicks on the that happen on the '.delete' element.
+The element and view are now captured. A 'click' event triggered on the '.delete' element will cause the '#picture' element to be removed.
 
 *Requires*: jQuery 1.6+  
 *Browser support*: IE6+

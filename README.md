@@ -44,8 +44,6 @@ Capture an element and view.
 	
 	var view = Capture('#element', view)
 
-Functional version of the one above.
-
 #### Capture.view(viewObject)
 Instantiates the object as a capture view.
 

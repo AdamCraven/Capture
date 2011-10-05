@@ -118,6 +118,7 @@
         return view;
     }
     
+    
     if (typeof Capture !== "undefined") {
         return logError('Capture is already defined');
     }
@@ -132,14 +133,9 @@
             return;
         }
         
-        // If a constructor has been passed (A function wrapped by capture.view)
-        view = (typeof view === "function") ? view() : view;
-        
-        validate(view);
-        
-        var optionalArgs = (arguments.length > 1) ? slice.call(arguments, 1) : undefined;
+        var args = [this].concat(slice.call(arguments, 0));
 
-        return connectView(this.eq(0), view, optionalArgs);
+        return window.Capture.apply(null, args);
     };
     
     /**
@@ -175,9 +171,14 @@
      *  Capture('#gallery', view)
      */
     window.Capture = function (element, view) {
-        var args = [view].concat(slice.call(arguments, 2));
+        // If a constructor has been passed (A function wrapped by capture.view)
+        view = (typeof view === "function") ? view() : view;
         
-        return $.fn.capture.apply($(element), args);
+        validate(view);
+        
+        var optionalArgs = (arguments.length > 2) ? slice.call(arguments, 2) : undefined;
+
+        return connectView($(element).eq(0), view, optionalArgs);
     };
     
     /**

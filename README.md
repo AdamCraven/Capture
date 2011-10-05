@@ -35,7 +35,7 @@ The element and view are now captured. A 'click' event triggered on the '.delete
 
 
 
-### API
+## API
 
 #### Capture(selector, view) *or* $(selector).capture(view)
 
@@ -66,7 +66,7 @@ The element property exists inside event listener properties. It captures all ev
 
 
 
-### The capture interface
+## The capture interface
 
 Wrapping an object in a Capture view instantiates an new object on each capture. You should define an 'init' function and can define multiple 'onEVENT\_TYPE' objects, where EVENT\_TYPE can be any valid jQuery event (e.g. mouseover) or a custom event. Example;
 
@@ -89,7 +89,7 @@ Wrapping an object in a Capture view instantiates an new object on each capture.
 		}
 	});
 
-### Attaching the same View Controllers to multiple elements
+## Attaching the same View Controllers to multiple elements
 
 This is generally undesirable behaviour. View Controllers are an overall controller. For example, they shouldn't be used for individual .pictures in a #gallery. Instead, it should capture the #gallery itself.
 To prevent this undesired behaviour one element is captured at a time.
@@ -115,7 +115,7 @@ Instantiation is automatically handled if the object is wrapped with Capture.vie
 		this.capture(paginationView)
 	};
 
-### Other features
+## Other features
 
 As it's just a JavaScript object, this works too;
 

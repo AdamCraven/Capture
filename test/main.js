@@ -81,14 +81,12 @@
         });
         
         test("Calling 'Capture' generates exception on lack of element", function() {
-            
             try {
                 Capture('#fakeElement', {});
                 fail('Exception not created');
             } catch (e) {
                 ok('Exception created when when element doesn\'t exist');
             }
-
         });
         
         test("Calling '$().capture' doesnt generate exception on lack of element", function() {
@@ -99,9 +97,26 @@
             } catch (e) {
                 fail('Exception created when element doesn\'t exist');
             }
-
         });
         
+        test("Calling 'Capture' generates exception with no view", function() {
+            try {
+                Capture('#fakeElement');
+                fail('Exception not created');
+            } catch (e) {
+                ok('Exception created when when element doesn\'t exist');
+            }
+        });
+        
+        test("Calling 'Capture' generates exception with wrong view type e.g. number", function() {
+            try {
+                Capture('#fakeElement', 999);
+                fail('Exception not created');
+            } catch (e) {
+                ok('Exception created when when element doesn\'t exist');
+            }
+
+        });
         
     
     

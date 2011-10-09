@@ -54,7 +54,7 @@
         }
         
         if (element.length === 0 || !element.each) {
-            return logError('Capture.js; No element found. You must attach the view to an element');
+            return logError('Capture.js; No element found. You must attach the view to an element.');
         }
     }
 
@@ -104,6 +104,11 @@
 
     /**
      *  Connect the view controller and element together
+     *
+     *  @param {Object} element         Element to attach view unto.
+     *  @param {Object} View            View to capture.
+     *  @param {Any}    [optionalArgs]  One or more extra arguments that are passed to the view.init.
+     *
      *  @returns {object} New instance of an initalised view controller
      */
     function connectView(element, view, optionalArgs) {
@@ -126,21 +131,6 @@
     if (typeof Capture !== "undefined") {
         return logError('Capture is already defined');
     }
-
-    /**
-     *  Capture loosely attaches a view to an element via event delegates.
-     *  @param  {object}  view  The View to be initialised from on the element
-     *  @public
-     */
-    $.fn.capture = function (view) {
-        if (this.length === 0 || !this.each) {
-            return;
-        }
-        
-        var args = [this].concat(slice.call(arguments, 0));
-
-        return window.Capture.apply(null, args);
-    };
     
     /**
      * View Controller base constructor.
@@ -163,16 +153,18 @@
         }
     };
 
-
         
     /**
-     * Allows for object-oriented style calls.
-     *
-     * @param {String}          element Element string to be parsed
-     * @param {Object/Function} View    To be instantiated as a capture view
-     *
-     * @example
-     *  Capture('#gallery', view)
+     *  Capture attaches a view to an element via event delegates.
+     *  
+     *  @param {String/Object}   element Element to attach view unto.
+     *  @param {Object/Function} View    To be instantiated as a capture view.
+     *  @param {AnyType}         [1..*]  One or more extra arguments that are passed to the view.init.
+     *  
+     *  @returns {object}    Instantiated view
+     *  
+     *  @example
+     *   Capture('#gallery', view)
      */
     window.Capture = function (element, view) {
         // If wrapped by Capture.view, it will be a function.
@@ -186,12 +178,12 @@
     };
     
     /**
-     * This wraps the view until called by capture. 
-     * It instantiates the view controller and sets inheritance to view base class.
+     *  This wraps the view until called by capture. 
+     *  It instantiates the view controller and sets inheritance to view base class.
      *
-     * @param {Object/Function} View    To be instantiated as a capture view
+     *  @param {Object/Function} View    To be instantiated as a capture view
      *
-     * @returns {function} The view to be initalised by capture
+     *  @returns {function} The view to be initalised by capture
      */
     Capture.view = function (View) { 
         return function () {       
@@ -201,6 +193,25 @@
             // Deep copy view into instance of ViewBaseClass
             return $.extend(true, new ViewBaseClass(), view);
         };
+    };
+    
+    /**
+     *  jQuery method to capture a view on the existing element. 
+     *  Doesn't return an error if element doesn't exist, as per jQuery philosophy.
+     *
+     *  @param  {object}  view  The View to be initialised from on the element
+     *  @param {AnyType}         [1..*]  One or more extra arguments that are passed to the view.init.
+     *
+     *  @returns {object}    Instantiated view
+     *
+     *  @example
+     *  $('#element').capture(view)
+     */
+    $.fn.capture = function (view) {
+        if (this.length === 0 || !this.each) {
+            return;
+        }
+        return window.Capture.apply(null, [this].concat(slice.call(arguments, 0)));
     };
     
     

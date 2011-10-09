@@ -108,9 +108,9 @@
             }
         });
         
-        test("Calling 'Capture' generates exception with wrong view type e.g. number", function() {
+        test("Calling 'Capture' generates exception with wrong view type e.g. array", function() {
             try {
-                Capture('#fakeElement', 999);
+                Capture('#fakeElement', []);
                 ok(false, 'Exception not created');
             } catch (e) {
                 ok(true, 'Exception created when when element doesn\'t exist');

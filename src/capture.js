@@ -157,7 +157,7 @@
     window.Capture = function (element, view) {
         // If wrapped by Capture.view, it will be a function.
         view = (typeof view === "function") ? view() : view;
-        
+                
         element = $(element);
 
         validate(element, view);

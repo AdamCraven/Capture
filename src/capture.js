@@ -2,7 +2,7 @@
 /*global jQuery, console, Capture:true, window */
 /**
  *  Capture.js 
- *  v0.9.2
+ *  v1.0.0beta
  *  Copyright 2011 Adam Craven
  *  Freely distributable under the MIT License.
  *  https://github.com/AdmCrvn/Capture
@@ -175,7 +175,7 @@
      *  Capture('#gallery', view)
      */
     window.Capture = function (element, view) {
-        // If a constructor has been passed (A function wrapped by capture.view)
+        // If wrapped by Capture.view, it will be a function.
         view = (typeof view === "function") ? view() : view;
         
         element = $(element);

@@ -44,13 +44,17 @@
     /**
      *  Validates the view when captured, checking for basic errors
      */
-    function validate(view) {
+    function validate(element, view) {
         if (!view) {
             return logError('Capture.js; No view passed. You must attach a view object or constructor. e.g. $("el").capture(view)');
         }
 
         if (toString.call(view) !== '[object Object]') {
             return logError('Capture.js; Invalid view type. The view must be an object or a constructor.');
+        }
+        
+        if (element.length === 0 || !element.each) {
+            return logError('Capture.js; No element found. You must attach the view to an element');
         }
     }
 
@@ -175,12 +179,8 @@
         view = (typeof view === "function") ? view() : view;
         
         element = $(element);
-        
-        if (element.length === 0 || !element.each) {
-            return logError('Capture.js; No element found. You must attach the view to an element');
-        }
-        
-        validate(view);
+
+        validate(element, view);
 
         return connectView(element.eq(0), view, (arguments.length > 2) ? slice.call(arguments, 2) : undefined);
     };

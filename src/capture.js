@@ -30,31 +30,19 @@
     }
     
     /**
-     *  logs errors to console
-     *  @param {string} error The error message to log
-     */
-    function logError(error) {
-        if (console && console.error) {
-            console.error(error);
-        } else {
-            throw new Error(error);
-        }
-    }
-
-    /**
      *  Validates the view when captured, checking for basic errors
      */
     function validate(element, view) {
         if (!view) {
-            return logError('Capture.js; No view passed. You must attach a view object or constructor. e.g. $("el").capture(view)');
+            throw new Error('Capture.js; No view passed. You must attach a view object or constructor. e.g. $("el").capture(view)');
         }
 
         if (toString.call(view) !== '[object Object]') {
-            return logError('Capture.js; Invalid view type. The view must be an object or a constructor.');
+            throw new Error('Capture.js; Invalid view type. The view must be an object or a constructor.');
         }
         
         if (element.length === 0 || !element.each) {
-            return logError('Capture.js; No element found. You must attach the view to an element.');
+            throw new Error('Capture.js; No element found. You must attach the view to an element.');
         }
     }
 
@@ -129,7 +117,7 @@
     
     
     if (typeof Capture !== "undefined") {
-        return logError('Capture is already defined');
+        throw new Error('Capture is already defined');
     }
     
     /**

@@ -174,11 +174,15 @@
         // If a constructor has been passed (A function wrapped by capture.view)
         view = (typeof view === "function") ? view() : view;
         
-        validate(view);
+        element = $(element);
         
-        var optionalArgs = (arguments.length > 2) ? slice.call(arguments, 2) : undefined;
+        if (element.length === 0 || !element.each) {
+            return logError('Capture.js; No element found. You must attach the view to an element');
+        }
+        
+        validate(view);
 
-        return connectView($(element).eq(0), view, optionalArgs);
+        return connectView(element.eq(0), view, (arguments.length > 2) ? slice.call(arguments, 2) : undefined);
     };
     
     /**

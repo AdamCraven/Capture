@@ -37,7 +37,7 @@ The element and view are now captured. A 'click' event triggered on the '.delete
 
 ## API
 
-#### Capture(selector, view) *or* $(selector).capture(view)
+#### Capture(selector, view)
 
 Capture an element and view.
 	

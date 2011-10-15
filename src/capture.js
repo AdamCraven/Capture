@@ -1,5 +1,5 @@
 /*jslint evil: false, bitwise:false, strict: true, undef: true, white:true, onevar:false, browser:true, plusplus:false */
-/*global jQuery, console, Capture:true, window */
+/*global jQuery, Capture:true, window */
 /**
  *  Capture.js 
  *  v1.0.0beta

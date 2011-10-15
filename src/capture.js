@@ -13,6 +13,7 @@
     var bind = Function.prototype.bind;
     var slice = Array.prototype.slice;
     var toString = Object.prototype.toString;
+    var UNDEFINED;
     
     // All properties with prefix of 'on' are treated as event delegates
     var eventMethodPrefix = /^on(.+)/;
@@ -162,7 +163,7 @@
 
         validate(element, view);
 
-        return connectView(element.eq(0), view, (arguments.length > 2) ? slice.call(arguments, 2) : undefined);
+        return connectView(element.eq(0), view, (arguments.length > 2) ? slice.call(arguments, 2) : UNDEFINED);
     };
     
     /**

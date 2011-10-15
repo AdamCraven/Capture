@@ -2,7 +2,7 @@
 /*global jQuery, Capture:true, window */
 /**
  *  Capture.js 
- *  v1.0.0beta
+ *  v1.0.0
  *  Copyright 2011 Adam Craven
  *  Freely distributable under the MIT License.
  *  https://github.com/AdmCrvn/Capture

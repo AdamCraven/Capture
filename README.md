@@ -42,6 +42,10 @@ The element and view are now captured. A 'click' event triggered on the '.delete
 Capture an element and view.
 	
 	var view = Capture('#element', view)
+	
+#### $(selector).capture(view)
+
+Same as above, but won't generate exceptions if no element, as per jQuery philisophy.
 
 #### Capture.view(viewObject)
 Instantiates the object as a capture view.

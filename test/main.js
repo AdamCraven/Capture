@@ -80,41 +80,35 @@
             expect(2);
         });
         
-        test("Calling 'Capture' generates exception on lack of element", function() {
-            try {
+        test("Calling 'Capture' generates exception on lack of element", function() {   
+            function exp() {
                 Capture('#fakeElement', {});
-            } catch (e) {
-                ok(true, 'Exception created when when element doesn\'t exist');
-            }
-            expect(1);
+            } 
+            
+            raises(exp, 'Exception created when when element doesn\'t exist');
         });
         
         test("Calling '$().capture' doesnt generate exception on lack of element", function() {
             // Because the jQuery way is to fail silently
             try {
-                Capture('#fakeElement', {});
-            } catch (e) {
-                ok(true, 'Exception created when element doesn\'t exist');
-            }
+                $('#fakeElement').capture({});
+                ok(true, 'no exception');
+            } catch (e) {}
             expect(1);
         });
         
         test("Calling 'Capture' generates exception with no view", function() {
-            try {
-                Capture('#fakeElement');
-            } catch (e) {
-                ok(true, 'Exception created when when element doesn\'t exist');
+            function exp() {
+                Capture('#testElement');
             }
-            expect(1);
+            raises(exp, 'Exception created when when no view exists');
         });
         
         test("Calling 'Capture' generates exception with wrong view type e.g. array", function() {
-            try {
+            function exp() {
                 Capture('#fakeElement', []);
-            } catch (e) {
-                ok(true, 'Exception created when when element doesn\'t exist');
             }
-            expect(1);
+            raises(exp, 'Exception created when wrong type');
         });
         
     

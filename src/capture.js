@@ -10,6 +10,10 @@
 (function ($) {
     "use strict";
     
+    if (typeof Capture !== "undefined") {
+        throw new Error('Capture is already defined');
+    }
+    
     var bind = Function.prototype.bind;
     var slice = Array.prototype.slice;
     var toString = Object.prototype.toString;
@@ -116,11 +120,6 @@
         return view;
     }
     
-    
-    if (typeof Capture !== "undefined") {
-        throw new Error('Capture is already defined');
-    }
-    
     /**
      * View Controller base constructor.
      * When an object is wrapped with Capture.view, it inherits methods directly
@@ -176,7 +175,7 @@
      */
     Capture.view = function (View) { 
         return function () {       
-            // If a constructor has been passed
+            // If a constructor has been passed, instantiate it now
             var view = (typeof View === "function") ? new View() : View;
 
             // Deep copy view into instance of ViewBaseClass

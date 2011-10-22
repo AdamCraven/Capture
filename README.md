@@ -37,6 +37,8 @@ The element and view are now captured. A 'click' event triggered on the '.delete
 
 ## API
 
+### Global methods
+
 #### Capture(selector, view)
 
 Capture an element and view.
@@ -49,6 +51,8 @@ Same as above, but won't generate exceptions if no element, as per jQuery philis
 
 #### Capture.view(viewObject)
 Instantiates the object as a capture view.
+
+### View methods
 
 #### view.element
 Reference to the captured element.

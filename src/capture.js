@@ -39,15 +39,15 @@
      */
     function validate(element, view) {
         if (!view) {
-            throw new Error('Capture.js; No view passed. You must attach a view object or constructor. e.g. $("el").capture(view)');
+            throw new Error("Capture.js; View undefined.\n You must attach a view object or constructor. e.g. Capture('element', view)");
         }
 
         if (toString.call(view) !== '[object Object]') {
-            throw new Error('Capture.js; Invalid view type. The view must be an object or a constructor.');
+            throw new Error('Capture.js; View wrong type.\n The view must be an object or a constructor.');
         }
         
         if (element.length === 0 || !element.each) {
-            throw new Error('Capture.js; No element found. You must attach the view to an element.');
+            throw new Error('Capture.js; No element found.\n You must attach the view to an element.');
         }
     }
 

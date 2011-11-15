@@ -2,8 +2,6 @@
 #Capture.js
 ##Views for JavaScript
 
-Capture.js is a spiritual successor to [lowpro](https://github.com/danwrong/low-pro-for-jquery). 
-
 Attach an object to an element unobtrusively using Capture. 
 
 With this HTML

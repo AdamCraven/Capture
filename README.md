@@ -157,7 +157,7 @@ With the added benefit of being able to instantiate multiple new View Controller
 
 
 # Change log
-
+  
 ####1.1.0
 13th December 12 - Introduce explicit Capture method: 'Capture.attach'. Prior to this jslint was recorded errors when linting 'Capture()'. An explicit API is also better.
 

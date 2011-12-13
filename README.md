@@ -34,7 +34,6 @@ The element and view are now captured. A 'click' event triggered on the '.delete
 
 Capture adheres to [Semantic Versioning](http://semver.org/).
 
-
 ----
 
 # API

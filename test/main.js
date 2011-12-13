@@ -75,14 +75,18 @@
                 } 
             };
              
-            Capture('#testElement', viewController, options, anotherValue); 
+            Capture.attach('#testElement', viewController, options, anotherValue); 
             
             expect(2);
         });
         
-        test("Calling 'Capture' generates exception on lack of element", function() {   
+        test("Calling 'Capture' === 'Capture.attach'", function () {
+            strictEqual(Capture, Capture.attach, 'Capture and Capture.attach are equivilant');
+        });
+        
+        test("Calling 'Capture.attach' generates exception on lack of element", function() {   
             function exp() {
-                Capture('#fakeElement', {});
+                Capture.attach('#fakeElement', {});
             } 
             
             raises(exp, 'Exception created when when element doesn\'t exist');
@@ -97,16 +101,16 @@
             expect(1);
         });
         
-        test("Calling 'Capture' generates exception with no view", function() {
+        test("Calling 'Capture.attach' generates exception with no view", function() {
             function exp() {
-                Capture('#testElement');
+                Capture.attach('#testElement');
             }
             raises(exp, 'Exception created when when no view exists');
         });
         
-        test("Calling 'Capture' generates exception with wrong view type e.g. array", function() {
+        test("Calling 'Capture.attach' generates exception with wrong view type e.g. array", function() {
             function exp() {
-                Capture('#fakeElement', []);
+                Capture.attach('#fakeElement', []);
             }
             raises(exp, 'Exception created when wrong type');
         });

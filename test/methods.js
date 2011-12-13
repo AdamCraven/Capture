@@ -26,7 +26,7 @@
         
 		test('"this.element" property is the element captured', function() {
 			var viewController = { init:function(){} };
-			var boundViewController = Capture('#testElement', viewController);
+			var boundViewController = Capture.attach('#testElement', viewController);
 			
 			equal(boundViewController.element[0], $('#testElement')[0], 'captured element is same');
 		});

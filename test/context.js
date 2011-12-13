@@ -58,7 +58,7 @@
                }
             };
             
-            Capture('#testElement', viewController);
+            Capture.attach('#testElement', viewController);
             expect(3);
             
 

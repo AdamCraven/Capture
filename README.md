@@ -153,3 +153,21 @@ As it's just a JavaScript object, this works too;
 	$('#picture').capture(pictureViewController);
 	
 With the added benefit of being able to instantiate multiple new View Controllers and use prototypal inheritance.
+
+
+# Change log
+
+####1.1.0
+13th December 12 - Introduce explicit Capture method: 'Capture.attach'. Prior to this jslint was recorded errors when linting 'Capture()'. An explicit API is also better.
+
+####1.0.0 - 15th October 12
+First public version
+
+####1.0.0beta - 9th October 12
+Api complete
+
+####0.9.2 - 29th August 12  
+In development
+
+####0.6.0 - 6th August 12
+In development

@@ -24,33 +24,33 @@ And this JavaScript
 
 Capture them
 	
-	$('#picture').capture(pictureView);
+	Capture.attach('#picture", pictureView)
+
 
 The element and view are now captured. A 'click' event triggered on the '.delete' element will cause the '#picture' element to be removed.
 
 *Requires*: jQuery 1.6+  
-*Browser support*: IE6+
+*Browser support*: IE6+  
 
 
+----
 
-## API
+# API
 
-### Global methods
+## Global methods
 
-#### Capture(selector, view)
+#### Capture.attach(selector, view)
 
 Capture an element and view.
 	
 	var view = Capture('#element', view)
-	
-#### $(selector).capture(view)
-
-Same as above, but won't generate exceptions if no element, as per jQuery philisophy.
 
 #### Capture.view(viewObject)
-Instantiates the object as a capture view.
+Instantiates the object as a capture view.  
 
-### View methods
+
+
+## View methods
 
 #### view.element
 Reference to the captured element.
@@ -71,8 +71,21 @@ The element property exists inside event listener properties. It captures all ev
 	} 
 
 
+## Alternative methods
 
-## The capture interface
+#### $(selector).capture(view)
+ 
+Equivilant to Capture.attach, but won't generate exceptions if no element, as per jQuery philisophy.
+
+#### Capture(selector, view)
+
+Equivilant to Capture.attach, from v1.0.0, but not js(l|h)int friendly.
+
+
+
+----
+
+# The capture interface
 
 Wrapping an object in a Capture view instantiates an new object on each capture. You should define an 'init' function and can define multiple 'onEVENT\_TYPE' objects, where EVENT\_TYPE can be any valid jQuery event (e.g. mouseover) or a custom event. Example;
 

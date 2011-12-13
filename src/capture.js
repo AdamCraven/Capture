@@ -39,7 +39,7 @@
      */
     function validate(element, view) {
         if (!view) {
-            throw new Error("Capture.js; View undefined.\n You must attach a view object or constructor. e.g. Capture('element', view)");
+            throw new Error("Capture.js; View undefined.\n You must attach a view object or constructor. e.g. Capture.attach('element', view)");
         }
 
         if (toString.call(view) !== '[object Object]') {
@@ -164,6 +164,13 @@
 
         return connectView(element.eq(0), view, (arguments.length > 2) ? slice.call(arguments, 2) : UNDEFINED);
     };
+    
+    /**
+     * Call Capture via more explicit attach method.
+     *  @example
+     *   Capture.attach('#gallery', view)
+     */
+    Capture.attach = Capture;
     
     /**
      *  This wraps the view until called by capture. 

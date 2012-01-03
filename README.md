@@ -44,7 +44,7 @@ Capture adheres to [Semantic Versioning](http://semver.org/).
 
 Capture an element and view.
 	
-	var view = Capture('#element', view)
+	var view = Capture.attach('#element', view)
 
 #### Capture.view(viewObject)
 Instantiates the object as a capture view.  

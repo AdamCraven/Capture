@@ -166,7 +166,7 @@
     };
     
     /**
-     * Call Capture via more explicit attach method.
+     * Call Capture via more explicit attach method
      *  @example
      *   Capture.attach('#gallery', view)
      */

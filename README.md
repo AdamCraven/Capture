@@ -40,29 +40,29 @@ Capture adheres to [Semantic Versioning](http://semver.org/).
 
 ## Global methods
 
-#### Capture.attach(selector, view)
+### Capture.attach(selector, view)
 
 Capture an element and view.
 	
 	var view = Capture.attach('#element', view)
 
-#### Capture.view(viewObject)
+### Capture.view(viewObject)
 Instantiates the object as a capture view.  
 
 
 
 ## View methods
 
-#### view.element
+### view.element
 Reference to the captured element.
 
-#### view.removeEventListeners
+### view.removeEventListeners
 Unbinds any listeners attached to the element.
 
-#### view.reattachEventListeners
+### view.reattachEventListeners
 Reattaches all event listeners. Unbinds existing listeners automatically.
 
-#### view.on[EVENT_TYPE].element
+### view.on[EVENT_TYPE].element
 The element property exists inside event listener properties. It captures all events of that type on view.element.
 
 	onclick : {
@@ -74,11 +74,11 @@ The element property exists inside event listener properties. It captures all ev
 
 ## Alternative methods
 
-#### $(selector).capture(view)
+### $(selector).capture(view)
  
 Equivalent to Capture.attach, but won't generate exceptions if no element, as per jQuery philosophy.
 
-#### Capture(selector, view)
+### Capture(selector, view)
 
 Equivalent to Capture.attach, but not js(l|h)int friendly. Superseded in v1.1.0
 

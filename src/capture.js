@@ -14,6 +14,10 @@
         throw new Error('Capture is already defined');
     }
     
+    if (typeof $ === "undefined") {
+        throw new Error('Capture.js; jQuery is not defined.\n You need jQuery to run Capture');
+    }
+    
     var bind = Function.prototype.bind;
     var slice = Array.prototype.slice;
     var toString = Object.prototype.toString;
@@ -141,7 +145,6 @@
         }
     };
 
-        
     /**
      *  Capture attaches a view to an element via event delegates.
      *  
@@ -208,7 +211,5 @@
         }
         return window.Capture.apply(null, [this].concat(slice.call(arguments, 0)));
     };
-    
-    
     
 })(jQuery);

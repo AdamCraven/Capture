@@ -1,4 +1,4 @@
-/*jslint evil: false, bitwise:false, strict: true, undef: true, white:true, onevar:false, browser:true, plusplus:false */
+/*jshint evil: false, bitwise:false, strict: true, undef: true, white:true, onevar:false, browser:true, plusplus:false */
 /*global jQuery, Capture:true, window */
 /**
  *  Capture.js 

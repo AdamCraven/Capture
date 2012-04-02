@@ -1,0 +1,73 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Capture by AdmCrvn</title>
+    
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="javascripts/scale.fix.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Capture</h1>
+        <p>View Controllers for JavaScript - Makes sophisticated JavaScript architectures, simpler. Based on lowpro.js behaviours.</p>
+        <p class="view"><a href="https://github.com/AdmCrvn/Capture">View the Project on GitHub <small>AdmCrvn/Capture</small></a></p>
+        <ul>
+          <li><a href="https://github.com/AdmCrvn/Capture/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/AdmCrvn/Capture/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/AdmCrvn/Capture">Fork On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>Capture.js</h1>
+
+<h2>Views for JavaScript</h2>
+
+<p>Attach an object to an element unobtrusively using Capture. </p>
+
+<p>With this HTML</p>
+
+<pre><code>&lt;div id="picture"&gt;
+    &lt;img src="link/to/img/" /&gt;
+    &lt;a class="delete"&gt;Delete picture&lt;/a&gt;
+&lt;/div&gt;
+</code></pre>
+
+<p>And this JavaScript</p>
+
+<pre><code>var pictureView = Capture.view({
+    onclick : {
+        '.delete' : function (e) {
+            // Will remove #picture
+            this.element.remove();
+        }
+    }
+});
+</code></pre>
+
+<p>Capture them</p>
+
+<pre><code>Capture.attach('#picture", pictureView)
+</code></pre>
+
+<p>The element and view are now captured. A 'click' event triggered on the '.delete' element will cause the '#picture' element to be removed.</p>
+
+<p><em>Requires</em>: jQuery 1.6+<br><em>Browser support</em>: IE6+</p>
+
+<p>Capture adheres to <a href="http://semver.org/">Semantic Versioning</a>.</p>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/AdmCrvn">AdmCrvn</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><!--<![endif]-->
+  </body>
+</html>

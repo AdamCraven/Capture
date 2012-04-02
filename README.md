@@ -1,6 +1,6 @@
 
-#Capture.js
-##Views for JavaScript
+# Capture.js
+## Views for JavaScript
 
 Attach an object to an element unobtrusively using Capture. 
 
@@ -42,13 +42,12 @@ Capture adheres to [Semantic Versioning](http://semver.org/).
 
 ### Capture.attach(selector, view)
 
-Capture an element and view.
+Capture an element and view. Returns an instance of the view.
 	
 	var view = Capture.attach('#element', view)
 
-### Capture.view(viewObject)
-Instantiates the object as a capture view.  
-
+### Capture.view(view)
+Wraps the object as a capture view. When captured will automatically create a new instance.
 
 
 ## View methods

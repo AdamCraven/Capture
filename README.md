@@ -2,17 +2,17 @@
 # Capture.js
 ## Views for JavaScript
 
-Attach an object to an element unobtrusively using Capture. 
+Attach an object to an element unobtrusively using Capture.
 
 With this HTML
-	
+
 	<div id="picture">
 		<img src="link/to/img/" />
 		<a class="delete">Delete picture</a>
 	</div>
-	
+
 And this JavaScript
-	
+
 	var pictureView = Capture.view({
 		onclick : {
 			'.delete' : function (e) {
@@ -23,13 +23,13 @@ And this JavaScript
 	});
 
 Capture them
-	
+
 	Capture.attach('#picture", pictureView)
 
 
 The element and view are now captured. A 'click' event triggered on the '.delete' element will cause the '#picture' element to be removed.
 
-*Requires*: jQuery 1.6+  
+*Requires*: jQuery 1.6+
 *Browser support*: IE6+
 
 Capture adheres to [Semantic Versioning](http://semver.org/).
@@ -43,7 +43,7 @@ Capture adheres to [Semantic Versioning](http://semver.org/).
 ### Capture.attach(selector, view)
 
 Capture an element and view. Returns an instance of the view.
-	
+
 	var view = Capture.attach('#element', view)
 
 ### Capture.view(view)
@@ -68,13 +68,13 @@ The element property exists inside event listener properties. It captures all ev
 		element : function (e) {
 			// Captures all clicks on this.element
 		}
-	} 
+	}
 
 
 ## Alternative methods
 
 ### $(selector).capture(view)
- 
+
 Equivalent to Capture.attach, but won't generate exceptions if no element, as per jQuery philosophy.
 
 ### Capture(selector, view)
@@ -116,7 +116,7 @@ To prevent this undesired behaviour one element is captured at a time.
 Which means when doing this;
 
 	$('.pictures').capture(pictureViewController);
-	
+
 Is effectively this;
 
 	$('.pictures').eq(0).capture(pictureViewController);
@@ -144,19 +144,22 @@ As it's just a JavaScript object, this works too;
 			'.delete' : function() {
 				// Will remove #picture
 				this.element.remove();
-			}	
+			}
 		};
 	}
-	
+
 	var pictureView = new PictureView();
-	
+
 	$('#picture').capture(pictureViewController);
-	
+
 With the added benefit of being able to instantiate multiple new View Controllers and use prototypal inheritance.
 
 
 # Change log
-  
+
+####1.1.1 - 8th December 16
+Remove polyfill binding as supported by all browsers.
+
 ####1.1.0 - 13th December 12
 Introduce explicit Capture method: 'Capture.attach'. Prior to this jslint was recorded errors when linting 'Capture()'. An explicit API is also better.
 
@@ -166,7 +169,7 @@ First public version
 ####1.0.0beta - 9th October 12
 Api complete
 
-####0.9.2 - 29th August 12  
+####0.9.2 - 29th August 12
 In development
 
 ####0.6.0 - 6th August 12
